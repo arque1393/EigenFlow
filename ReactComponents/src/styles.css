@@ -1,0 +1,47 @@
+/* Theme dark */
+@import "./style/apptheme-dark.scss";
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.navbar {
+  box-shadow: 5px 5px 5px 5px rgba(77, 77, 77, 0.247);
+  z-index: 10;
+}
+.btn.light,
+.btn-sm.light {
+  background-color: white;
+}
+.btn-group-sm > .btn,
+.btn-sm {
+  font-size: 0.5rem !important;
+  box-shadow: 1px 1px 1px 1px rgba(51, 51, 51, 0.473);
+  margin: 2px;
+}
+.icons svg {
+  margin: 2px;
+}
+.icons svg:hover {
+  color: orange;
+}
+
+div.toolbar {
+  box-shadow: 1px 1px 1px 1px rgba(51, 51, 51, 0.473);
+  background-color: #666;
+  width: 100%;
+  padding: 2px;
+}
+div.toolbar.fixed {
+  position: fixed;
+}
