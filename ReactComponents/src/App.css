@@ -28,10 +28,13 @@
 *{  margin:0;padding:0; appearance: none;border:0;
     text-decoration: none; box-sizing: border-box; }
 body{   font-family: 'Suwannaphum', serif;
-    font-size: .9rem; /*overflow: hidden; */ 
+    font-size: .9rem; overflow: hidden; 
     background: var(--color-background);}
+.login_back_container{z-index:151;position:absolute;display:none;height: 100%;width: 100%;place-items: center;background-color: rgba(0,0,0,0.41);top:0;}
+
+.login_show{display: grid;}
 .container { 
-    display: flex;width: 99%; margin: 0 auto; gap: .9rem; overflow: visible;
+    display: flex;width: 99%; margin: 0 auto; gap: .9rem; overflow: hidden;height: 100%;
     grid-template-columns: 14rem auto 23rem; 
     justify-content: stretch;
 }
@@ -62,6 +65,7 @@ b{color: var(--color-dark-variant)}
     font-size: 25px;cursor: pointer; color: rgb(0, 0, 0);}
 .top .right-bar{gap:4rem;display:flex;max-height: 2.7rem;min-width:fit-content;
     justify-content: space-between;}
+
 .top .right-bar .menu{display: flex;  max-height: inherit;
     height:inherit; width: 30rem;   height: 100%;    
     justify-content: space-around;}
@@ -88,7 +92,7 @@ b{color: var(--color-dark-variant)}
     min-height:2.5rem;  margin: 0.25rem; border-radius: 50%;}
 .user-logo{font-size: 1.6rem;      transition: all .3s ease ;}
 .top .right-bar .menu .opened {display: block;}
-.aside{height:calc(100vh - 3.5rem);max-width: max-content;overflow: hidden;min-width:max-content;transition: all 400ms ease ;}
+.aside{height:calc(100vh - 2.5rem);max-width: max-content;overflow: hidden;min-width:max-content;transition: all 400ms ease ;}
 .aside *{ font-family: 'Suwannaphum', serif;}
 .aside .hamburger-right{
     display: flex; gap: .4rem; justify-content: left;        
@@ -137,7 +141,7 @@ b{color: var(--color-dark-variant)}
 
 .Main { 
     width:100%;position:relative;right:4px;padding:0;
-    display:block;margin-top: 1rem;z-index: 0; height:calc(100vh - 4.44rem);min-width:167vh;
+    display:block;margin-top: .5rem;z-index: 0; height:auto;/*calc(100vh - 4.44rem)*/;min-width:auto;
 background-color:none ;}
 .Main .date { display: inline-block;
 background: var(--color-light); border-radius: var(--border-radius-1);
@@ -190,11 +194,12 @@ background: transparent;    color: var(--color-dark);}
     .top{padding:0 2rem;justify-content:space-between; overflow:visible;}
     .top .hamburger{display:block;}
     /**** Right Bar CSS Code Begin *****/
-    .top .right-bar{   max-width:300px;overflow: hidden;
+    .top .right-bar{   max-width:0px;overflow: hidden;
         display:block;  position: absolute;  z-index: 15;
-        top:2.7rem;right:-300px; bottom:0;    min-height:100vh;
-        background-color: var(--rightbar-color);  padding:0 2rem;
+        top:2.7rem;right:0; bottom:0;    min-height:100vh;
+        background-color: var(--rightbar-color);  
         transition: all .3s ease; }
+    .top .slided{max-width: 250px;padding:0 2rem;}
     .top .right-bar .menu{
         position: absolute; top:6rem;
         display: block;  max-height: 2.4rem;
@@ -206,7 +211,7 @@ background: transparent;    color: var(--color-dark);}
 
     /**** Right Bar CSS Code END *****/
     .top  .right-bar .menu .dropdown{position:relative;top:0;right:0;}
-    #right-check:checked ~ .right-bar{right:0}
+    
 }
 @media (max-width: 300px) {.top .right-bar{ width: 100%;}}
 
