@@ -1,106 +1,89 @@
 import * as React from 'react';
-
 import {DockLayout, DockContextType} from 'rc-dock';
 import DragStore from 'react-draggable';
+
+
+const groups = {
+  'close-all': {
+    floatable: true,
+    closable: true,
+    panelExtra: (panelData, context) => {
+
+      let buttons = [];
+      if (panelData.parent.mode !== 'window') {
+        buttons.push(
+          <span className='my-panel-extra-btn' key='maximize'
+                title={panelData.parent.mode === 'maximize' ? 'Restore' : 'Maximize'}
+                onClick={() => context.dockMove(panelData, null, 'maximize')}>
+          {panelData.parent.mode === 'maximize' ? '▬' : '▣'}
+          </span>
+        )
+        buttons.push(
+          <span className='my-panel-extra-btn' key='new-window' title='Open in new window'
+                onClick={() => context.dockMove(panelData, null, 'new-window')}>
+          ⇪
+          </span>
+        )
+      }
+      buttons.push(
+        <span className='my-panel-extra-btn' key='close' title='Close'
+              onClick={() => context.dockMove(panelData, null, 'remove')}>
+          X
+        </span>
+      )
+      return <div>{buttons}</div>
+    }
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const jsxTab = {
   id: 'jsxTab',
   title: 'jsx',
   closable: true,
-  content: <iframe src={`Something.jsx.html`}/>
-};
-const htmlTab = {
-  id: 'htmlTab',
-  title: 'html',
-  closable: true,
-  content: <iframe src={`something.html.html`}/>
-};
-let tab = {
-  content: <div>Tab Content</div>,
-  closable: true,
+  content: (<h1>GGGGGGGGGGGggg</h1>
+  )
 };
 
-let layout = {
-    dockbox: {
-      mode: 'horizontal',
-      children: [
-        {
-          mode: 'vertical',
-          size: 200,
-          children: [
-            {
-              tabs: [{...tab, id: 't1', title: 'Tab 1'}, {...tab, id: 't2', title: 'Tab 2'}],
-            },
-            {
-              tabs: [{
-                ...tab, id: 't3', title: 'Min Size', content: (
-                  <div>
-                    <p>This tab has a minimal size</p>
-                    150 x 150 px
-                  </div>
-                ), minWidth: 150, minHeight: 150,
-              }, {...tab, id: 't4', title: 'Tab 4'}],
-            },
-          ]
-        },
-        {
-          size: 1000,
-          tabs: [
-            {
-              ...tab, id: 't5', title: 'basic demo', content: (
-                <div>
-                  This panel won't be removed from layout even when last Tab is closed
-                </div>
-              ),
-            },
-            jsxTab,
-            htmlTab,
-          ],
-          panelLock: {panelStyle: 'main'},
-        },
-        {
-          size: 200,
-          tabs: [{...tab, id: 't8', title: 'Tab 8'}],
-        },
-      ]
-    },
-    floatbox: {
-      mode: 'float',
-      children: [
-        {
-          tabs: [
-            {...tab, id: 't9', title: 'Tab 9', content: <div>Float</div>},
-            {...tab, id: 't10', title: 'Tab 10'}
-          ],
-          x: 300, y: 150, w: 400, h: 300
-        }
-      ]
-    }
+let tab1 = {
+  title: 'Tab',
+  content: (
+    <div>
+      <p>Custom component can be added to panel's title bar.</p>
+      <p>This panel has a custom maximize button and a close all button</p>
+    </div>),
+  group: 'close-all'
+};
+
+
+const layout={
+  dockbox : {
+    mode :"horizontal",
+    children:[{
+      tabs:[{...tab1, id: 't1'}, {...jsxTab, group: 'close-all'}],}
+    ]
   }
-;
-if (window.innerWidth < 600) {
-  layout.dockbox.children.pop();
 }
-
-let count = 0;
-
 class Demo extends React.Component {
 
-  onDragNewTab = (e) => {
-    let content = `New Tab ${count++}`;
-    DragStore.dragStart(DockContextType, {
-      tab: {
-        id: content,
-        content: <div style={{padding: 20}}>{content}</div>,
-        title: content,
-        closable: true,
-      }
-    }, e.nativeEvent);
-  };
 
   render() {
     return (
-      <DockLayout defaultLayout={layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}}/>
+      <DockLayout defaultLayout={layout} groups={groups} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}}/>
     );
   }
 }

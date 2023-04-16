@@ -13,8 +13,8 @@ function MainContent(){
         <>
          <Routes>
             <Route path="/"  element={<Home/>} /> 
-            <Route path="/analytics"  element={<Demo/>} />
-            <Route path="/galary"  element={<Analysis/>} />
+            <Route path="/analytics"  element={<Analysis/>} />
+            <Route path="/galary"  element={<Demo/>} />
             <Route path="/scheduler"  element={<Schedule/>} />
             <Route path="/notebook"  element={<NoteBook/>} />
             <Route path="/history"  element={<History/>} />

@@ -1,8 +1,5 @@
 import React from 'react';
-import DockLayout from 'rc-dock'
 import "rc-dock/dist/rc-dock.css";
-import Demo from "./component/basic"
-
 import SideBar from './component/sidebar'
 import TopBar from './component/topbar'
 import MainContent from './component/mainContent'
