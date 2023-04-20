@@ -1,47 +1,107 @@
 import React, { useState } from "react";
-import logo from './logo/logo.png'; 
+import light_logo from './logo/logo.png'; 
+import logo from './logo/llogo.png'; 
 import { GoThreeBars } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
+import axios from "axios";
+
 import './loginPage.css';
 
 
 function TopBar(){
-//    function on_click(e){
-//     e = document.getElementById(e);
-//     e.style.display = "block";
-//    }
+    //    function on_click(e){
+    //     e = document.getElementById(e);
+    //     e.style.display = "block";
+    //    }
 
-let [mb0,open_mb0] =useState(false);
-let [mb1,open_mb1] =useState(false);
-let [mb2,open_mb2] =useState(false);
-let [mb3,open_mb3] =useState(false);
-let [slided,set_slided] =useState(false);
-let [login_on,set_login_on] =useState(false);
+
+    function set_theme(theme){
+        document.getElementById("OuterMostBody").className = theme
+        setThemeVariable(theme)
+    }
+    let [theme,setThemeVariable] =useState(false);
+    let [mb0,open_mb0] =useState(false);
+    let [mb1,open_mb1] =useState(false);
+    let [mb2,open_mb2] =useState(false);
+    let [mb3,open_mb3] =useState(false);
+    let [slided,set_slided] =useState(false);
+    let [login_on,set_login_on] =useState(false);
+    let [slide,set_slide] = useState("");
+
+
+
+    function loginSubmit(event){
+        event.preventDefault()
+        const data = { 
+             email:event.target[0].value,
+            password:event.target[1].value
+        }
+        const url =  "http://127.0.0.1:8000/auth/signin/";
+        axios.post(url, data)
+          .then(function (res) {
+            console.log(res.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          set_login_on(false)
+    }
+    function signupSubmit(event){
+        event.preventDefault()
+        const url =  "http://127.0.0.1:8000/auth/signup/";
+        const username   =event.target[0].value
+        const email  =event.target[1].value
+        const password1  = event.target[2].value
+        const password2  = event.target[3].value
+        if(password1!==password2)
+        {
+            console.log("Password Missmatch");
+            return
+        }
+        axios.post(url, {   
+            username:username,
+            email:email,
+            password:password1
+           })
+          .then(function (res) {
+            console.log(res.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+          set_login_on(false)
+        
+        // 
+        // 
+        // 
+        // 
+
+    }
 
     return(
 <div className="top">
 
     
-    <div className={`login_back_container ${login_on?"login_show":""}`} onClick={(e)=>{e.preventDefault();
+    <div className={`login_back_container ${login_on?"login_show":""}`} onClick={(e)=>{
     if(e.target.className==="login_back_container login_show")
         set_login_on(false)}}> 
         <div className="login-back">
            
-            <div className="title-text">
-            <div className="title login">Login Form</div>
-            <div className="title signup">Signup Form</div>
+            <div className={`title-text${slide}`}>
+                <div className="title login" >Login Form</div>
+                <div className="title signup" >Signup Form</div>
             </div>
-            <div className="form-container">
-            <div className="slide-controls">
-             
-                <div  className="slide login">Login</div>
-                <div className="slide signup">Signup</div>
-                <div className="slider-tab"></div>
+       
+            <div className="slide-controls">             
+                <div  className={`btn${slide===""?" active":""}`} onClick={()=>set_slide("")}>Login</div>
+                <div className={`btn${slide===""?"":" active"}`} onClick={()=>set_slide(" active")}>Signup</div>
+                <div className={`slider-tab${slide}`}></div>
             </div>
-            <div className="form-inner">
-                <form action="#" className="login">
+            <div className={`form-inner${slide}`}>
+                <form onSubmit={loginSubmit} className="login">
                 <div className="field">
-                    <input name="username" type="text" placeholder="Username or Email" required/>
+                    <input name="email" type="text" placeholder="Email ID" required/>
                 </div>
                 <div className="field">
                     <input name="password" type="password" placeholder="Password" required/>
@@ -53,7 +113,7 @@ let [login_on,set_login_on] =useState(false);
                 </div>
                 <div className="signup-link">Not a member? <a href="">Signup now</a></div>
                 </form>
-                <form action="#" className="signup">
+                <form onSubmit={signupSubmit} className="signup">
                 <div className="field">
                     <input type="text" placeholder="Username" required/>
                 </div>
@@ -72,11 +132,11 @@ let [login_on,set_login_on] =useState(false);
                 </div>
                 </form>
             </div>
-            </div>
+            
             </div>
         </div>
     <div className="logo">
-        <img src={logo}/>
+        <img src={theme==="dark"?logo:light_logo}/>
         <h2><span className="danger">Eigen</span>Flow</h2>
     </div>
 
@@ -90,13 +150,27 @@ let [login_on,set_login_on] =useState(false);
                         <div className="basic_efit" style={{background:"none",display:"grid", gridTemplateColumns:"1fr 1fr"}}>
                             <a className="dropdown-item" href="#">Undo</a>
                             <a className="dropdown-item" href="#">Redo</a>
-                            <a className="dropdown-item" href="#">Cut</a>
+                            <a className="dropdown-item" href="#">Cut </a>
                             <a className="dropdown-item" href="#">Copy</a>
                             <a className="dropdown-item" href="#">Past</a>
                         </div>
                         <hr style={{border:"solid 1px #aaaaff"}}/>
-                        <a className="dropdown-item" href="#">Go to</a>
+                        <a className="dropdown-item" href="#">Go to
+                        {/* <div className="sub-drop">
+                            <a className="dropdown-item" href="#">Data Galary</a>
+                            <a className="dropdown-item" href="#">Profile </a>
+                            <a className="dropdown-item" href="#"> Back   +</a>
+                         </div> */}
+                        </a>
                         <a className="dropdown-item" href="#">Preference</a>
+                        <div className="sub-dropdown-container">                       
+                            <a className="dropdown-item" href="#">Themes</a>
+                            <div className="sub-drop">
+                                <a className="dropdown-item" onClick={()=>set_theme("dark")}>Dark</a>
+                                <a className="dropdown-item"onClick={()=>set_theme("light")}>Light</a>
+                                <a className="dropdown-item" href="#">Add Modr   +</a>
+                            </div>
+                        </div>
                 </div>
             </div>
             <div  className="menu-content"  onMouseLeave={()=>open_mb1(false)}>
@@ -104,7 +178,13 @@ let [login_on,set_login_on] =useState(false);
                 <div id="drop1" className={`dropdown ${mb1?"opened":""}`}>
                     <a className="dropdown-item" href="#">Plot Tools </a>
                     <a className="dropdown-item" href="#">Directory </a>
-                    <a className="dropdown-item" href="#">Code Editor </a>
+                    <a className="dropdown-item" href="#">Code Editor 
+                        {/* <div className="sub-drop">
+                                <a className="dropdown-item" href="#">Dark</a>
+                                <a className="dropdown-item" href="#">Light</a>
+                                <a className="dropdown-item" href="#">Add Modr   +</a>
+                            </div> */}
+                    </a>
                     <a className="dropdown-item" href="#">Data Display</a>
                     <a className="dropdown-item" href="#">Shortcuts</a>
                 </div>

@@ -1,0 +1,63 @@
+/* // dock-style-place-holder
+// when all the panels are floated we need a place holder in the dock box to handle drag over event */
+.dark{
+  --dock-panel-back:#353444;
+  --tab-background:rgb(74, 64, 94);
+  --active-tab-background:rgb(5, 0, 15);
+  --active-tab-color:rgb(255, 255, 255);
+
+  --general-tab-background:#34145d;
+  --general-tab-color:rgb(255, 255, 255);
+  --tab-border:#2a2a2f;
+  --dock-layout-background:#1f0338;
+  --dock-content:#ffffff;
+  --dock-panel-border:#a997be;
+--add-new-tab-btn:rgb(0, 136, 203);
+
+}
+.light{
+  --dock-panel-back:#f9f9ff;
+  --tab-background:rgb(201, 201, 228);
+  --active-tab-background:rgb(0, 149, 255);
+  --active-tab-color:rgb(255, 255, 255);
+  --general-tab-background:rgb(190, 200, 255);
+  --general-tab-color:rgb(0, 0, 0);
+  --tab-border:#efefff;
+  --dock-layout-background:#fff;
+--add-new-tab-btn:rgb(161, 224, 255);
+  --dock-content:#000;
+  --dock-panel-border:#aaa;
+}
+/* .dock{border-radius: 10px;} */
+.dock-nav-wrap{padding:4px;}
+.dock-layout {background-color: var(--color-white);border:solid 5px var(--dock-layout-background) }
+.dock-layout *{color:var(--dock-content)}
+/* .dock-hbox{background-color: rgba(0, 255, 255);} */
+/* .dock-tabpane{background-color: aqua;} */
+.dock-panel{background-color:var(--dock-panel-back);/*border-color:var(--dock-panel-border)*/border:none;}
+.dock-nav{/*background-color: rgb(255, 221, 0);*/}
+
+.dock-tab{background-color: var(--general-tab-background);
+  color:var(--general-tab-color);border: solid 1px var(--tab-border); 
+  border-top-left-radius: 10px;border-top-right-radius: 10px;margin:0 1px;min-width: 150px;padding:0 6px;
+}
+.dock-tab *{font-size: .94rem;font-family: 'Crete Round', serif;font-weight: 100px;}
+.dock-tab-btn{position:relative;font-size: large;}
+.dock-tab-btn .drag-initiator{justify-content: space-between;display:flex;gap:10px;}
+
+.dock-tab-active{background-color: var(--active-tab-background);}
+.dock-tab-active *{color:var(--active-tab-color);;font-weight: 150px;}
+.dock-tab >div {padding:1px 7px; border-radius: 10px;}
+.dock-tab-btn{padding:0;}
+.dock-bar.drag-initiator{background-color:var(--tab-background) ;height:1.8rem;border:none;}
+
+
+.dock-tab-close-btn {position:relative;top:0;padding-left:10px;padding-right: 5px;}
+.dock-style-gyn .dock-tab-active{background-color: rgb(0, 200, 255);color:rgb(255, 255, 255)}
+
+.dock-extra-content .add-new-tab-btn{
+  border-radius: 10px;
+  margin:4px;
+  padding:0px 10px;
+  background-color:var(--add-new-tab-btn)
+}

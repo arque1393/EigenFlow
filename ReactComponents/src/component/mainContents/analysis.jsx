@@ -1,109 +1,161 @@
 import * as React from 'react';
+import {DockLayout} from 'rc-dock';
+import './basic.css'
+// import DragStore from 'react-draggable';
+import { FiMinimize2 } from 'react-icons/fi';
+import { AiOutlineClose } from 'react-icons/ai';
+import { CgMaximizeAlt } from 'react-icons/cg';
 
-import {DockLayout, DockContextType} from 'rc-dock';
-import DragStore from 'react-draggable';
-
-const jsxTab = {
-  id: 'jsxTab',
-  title: 'jsx',
-  closable: true,
-  content: <iframe src={`Something.jsx.html`}/>
-};
-const htmlTab = {
-  id: 'htmlTab',
-  title: 'html',
-  closable: true,
-  content: <iframe src={`something.html.html`}/>
-};
-let tab = {
-  content: <div>Tab Content</div>,
-  closable: true,
-};
-
-let layout = {
-    dockbox: {
-      mode: 'horizontal',
-      children: [
-        {
-          mode: 'vertical',
-          size: 200,
-          children: [
-            {
-              tabs: [{...tab, id: 't1', title: 'Tab 1'}, {...tab, id: 't2', title: 'Tab 2'}],
-            },
-            {
-              tabs: [{
-                ...tab, id: 't3', title: 'Min Size', content: (
-                  <div>
-                    <p>This tab has a minimal size</p>
-                    150 x 150 px
-                  </div>
-                ), minWidth: 150, minHeight: 150,
-              }, {...tab, id: 't4', title: 'Tab 4'}],
-            },
-          ]
-        },
-        {
-          size: 1000,
-          tabs: [
-            {
-              ...tab, id: 't5', title: 'basic demo', content: (
-                <div>
-                  This panel won't be removed from layout even when last Tab is closed
-                </div>
-              ),
-            },
-            jsxTab,
-            htmlTab,
-          ],
-          panelLock: {panelStyle: 'main'},
-        },
-        {
-          size: 200,
-          tabs: [{...tab, id: 't8', title: 'Tab 8'}],
-        },
-      ]
-    },
-    floatbox: {
-      mode: 'float',
-      children: [
-        {
-          tabs: [
-            {...tab, id: 't9', title: 'Tab 9', content: <div>Float</div>},
-            {...tab, id: 't10', title: 'Tab 10'}
-          ],
-          x: 300, y: 150, w: 400, h: 300
-        }
-      ]
-    }
-  }
-;
-if (window.innerWidth < 600) {
-  layout.dockbox.children.pop();
+let solution = {
+  title:'Solution Explorer', 
+  content: (
+    <div>
+      <h1>Tab1 Tab</h1>
+    </div>),  
+    closable:true,
+}
+let editorTab={
+  title:'Solution Explorer', 
+  content: (
+    <div>
+      <p>Writw or edit Your Code </p>
+    </div>),  
 }
 
+
 let count = 0;
-
-class Demo extends React.Component {
-
-  onDragNewTab = (e) => {
-    let content = `New Tab ${count++}`;
-    DragStore.dragStart(DockContextType, {
-      tab: {
-        id: content,
-        content: <div style={{padding: 20}}>{content}</div>,
-        title: content,
-        closable: true,
-      }
-    }, e.nativeEvent);
+function newTab() {
+  return {
+    id: `newtab${++count}`,
+    title: 'New Tab',
+    content: (
+      <div>
+        <p>Write Your code here</p>
+      </div>),
+    closable:true,
   };
+}
+let codeEditor={
+  tabs: [newTab(), newTab()],
+  panelLock: {
+    minWidth: 200,
+    panelExtra: (panelData, context) => (
+      <button className='add-new-tab-btn'
+              onClick={() => context.dockMove(newTab(), panelData, 'middle')}>
+        add
+      </button>
+    )
+  }
+}
 
+const console= {
+  tabs:[
+    { 
+      id:"console",
+      title:'Console', 
+      content: (
+        <div>
+          <p1>[1]: Type Your Command </p1><br/>
+          <p1>[2]: </p1>
+        </div>),  
+        closable:true,
+    },{ 
+      id:"log",
+      title:'Error Log', 
+      content: (
+        <div>
+          <p1>......Log Information ........ </p1><br/>
+          <p1>......Log Information ........ </p1><br/>
+          <p1>......Log Information ........ </p1><br/>         
+        </div>),  
+        closable:true,
+    },
+],
+  size:60
+}
+
+    
+const shortcuts={
+  tabs:[
+    { 
+      id:"shortcuts",
+      title:'Shortcuts', 
+      content: (
+        <div>
+          <h3>Shortcuts</h3>
+          <p>Make it easy</p>
+        </div>),  
+        closable:true,
+    }]
+}
+const Tools={
+  tabs:[
+    { 
+      id:"Tools",
+      title:'Tools', 
+      content: (
+        <div>
+          <h3>Tools</h3>
+          <p>Make it easy</p>
+        </div>),  
+        closable:true,
+    }]
+
+}
+
+
+
+
+
+
+
+
+
+
+const layout={
+  dockbox : {
+    mode :"horizontal",
+    children:[    
+      {
+        mode: "vertical",
+        // size: 1200,
+        children:[
+          {
+            mode: "horizontal",         
+            children:[
+              {
+                tabs:[{id:"directort",title:"Directory Tree",content:(<p> Label 1</p>)} ],
+                size:40
+              },
+              codeEditor,
+              {
+                mode: "vertical",         
+                children:[
+                    shortcuts,
+                    Tools,
+                ],
+                size:80,
+              }
+            ]
+          },
+         console,
+        ],
+      },
+      {
+        mode:'vertical',
+        tabs:[{...solution, id:"solution"}],
+        size:35
+      },
+    ]
+  }
+}
+
+class Analysis extends React.Component {
   render() {
     return (
-      <DockLayout defaultLayout={layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}}/>
+      <DockLayout defaultLayout={layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"/>
     );
   }
 }
 
-// ReactDOM.render(<Demo/>, document.getElementById('app'));
-export default Demo;
+export default Analysis;

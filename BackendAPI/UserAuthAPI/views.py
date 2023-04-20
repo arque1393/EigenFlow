@@ -1,24 +1,45 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .authentication import auth, db
+from django.contrib.auth import logout
+import json
+
 # Create your views here.
-datax = {
-        'username':'Kabir',
-        'email':'ilab.kabir@gmail.com',
-        'password':'qwertgfdsa'}
 
 
 @api_view(['post']) 
-def p(req):
+def signup(req):
     data = req.data   
     uname = data["username"]        
     email=data["email"]
-    passwd = data["password"]       
-    if uname == datax['username'] and email == datax['email'] and passwd == datax['password'] :
-        res = {"success":True,'error':"none"}
-    else: res = {"success":False,'error':"Invalid Cradentils"}
+    passwd = data["password"] 
+    try : 
+        user = auth.create_user_with_email_and_password(email,passwd) 
+        print(user)
+        res = {"success":True,'session_id':user['idToken'],'uid':user['localId'],'error':"none"}
+    except Exception as e :
+        m = json.loads(e.strerror)["error"]["message"]
+        res = {"success":False,'error':m}       
+        print(type(e.strerror))
+
+    return Response(res)
+
+
+@api_view(['post']) 
+def signin(req):
+    data = req.data   
+    # uname = data["username"]        
+    email=data["email"]
+    passwd = data["password"]  
+    res={}   
+    try :
+        user = auth.sign_in_with_email_and_password(email,  passwd)        
+        res = {"success":True,'session_id':user['idToken'],'error':"none"}
+    except :
+        res = {"success":False,'error':"Invalid Cradentils"}
     return Response(res)
     
 @api_view(['get']) 
-def signin(req):
-    print(req)
-    return Response(datax)
+def signout(req):
+    logout(req)
+    return Response({"message":"Logout Success"})

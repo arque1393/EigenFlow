@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import firebase_admin as fadmin
+from firebase_admin import credentials
+
 
 from pathlib import Path
 
@@ -39,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'UserAuthAPI.apps.UserauthapiConfig'
+    'UserAuthAPI.apps.UserauthapiConfig',
+    'base.apps.BaseConfig'
 
 ]
 
@@ -51,14 +55,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'BackendAPI.urls'
-
+TEMPLATE_DIR = BASE_DIR.parent/"ReactBuild"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,14 +89,22 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.BasicAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+
+#         # 'rest_framework_simplejwt.authentication.JWTAuthentication'
+#     ]
+# }
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+    
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication'
+        # 'UserAuthAPI.authentication.FirebaseAuthentication',
     ]
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -126,8 +140,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [  # Static Directory all static files related to main app is placed here
+    TEMPLATE_DIR/"static",    
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CORS_ALLOWED_ORIGINS = [   
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+## Firebase 
+# cred = credentials.RefreshToken('./firebaseConfig.json')
+# cred = credentials.Certificate("./eigenflow1x-firebase-adminsdk-1zf2n-83ac7a96f2.json")
+# default_app = fadmin.initialize_app(cred)
