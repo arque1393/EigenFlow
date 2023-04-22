@@ -8,7 +8,7 @@ import axios from "axios";
 import './loginPage.css';
 
 
-function TopBar(){
+function TopBar(props){
     //    function on_click(e){
     //     e = document.getElementById(e);
     //     e.style.display = "block";
@@ -17,9 +17,8 @@ function TopBar(){
 
     function set_theme(theme){
         document.getElementById("OuterMostBody").className = theme
-        setThemeVariable(theme)
+        props.setTheme(theme)
     }
-    let [theme,setThemeVariable] =useState(false);
     let [mb0,open_mb0] =useState(false);
     let [mb1,open_mb1] =useState(false);
     let [mb2,open_mb2] =useState(false);
@@ -136,7 +135,7 @@ function TopBar(){
             </div>
         </div>
     <div className="logo">
-        <img src={theme==="dark"?logo:light_logo}/>
+        <img src={props.theme==="dark"?logo:light_logo}/>
         <h2><span className="danger">Eigen</span>Flow</h2>
     </div>
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {DockLayout} from 'rc-dock';
-import './mainContents/basic.css'
+import './dockLayout.css'
 // import DragStore from 'react-draggable';
 import { FiMinimize2 } from 'react-icons/fi';
 import { AiOutlineClose } from 'react-icons/ai';

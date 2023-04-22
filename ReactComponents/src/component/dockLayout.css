@@ -1,42 +1,42 @@
 /* // dock-style-place-holder
 // when all the panels are floated we need a place holder in the dock box to handle drag over event */
 .dark{
-  --dock-panel-back:#353444;
-  --tab-background:rgb(74, 64, 94);
-  --active-tab-background:rgb(5, 0, 15);
-  --active-tab-color:rgb(255, 255, 255);
-
-  --general-tab-background:#34145d;
-  --general-tab-color:rgb(255, 255, 255);
-  --tab-border:#2a2a2f;
-  --dock-layout-background:#1f0338;
+  --dock-panel-back:#21212e;
+  --tab-background:#403a50;
+  --dock-layout-background:#1f1f33;  
   --dock-content:#ffffff;
   --dock-panel-border:#a997be;
---add-new-tab-btn:rgb(0, 136, 203);
-
+  --add-new-tab-btn:rgb(0, 136, 203);
+  --active-tab-background:rgb(5, 0, 15);
+  --active-tab-color:rgb(255, 255, 255);
+  --general-tab-background:#2f223d;
+  --general-tab-color:rgb(255, 255, 255);
+  --tab-border:#2a2a2f;
+  --dock-background-border-color:rgb(55, 55, 75);
+  --shortcuts-btn-shadow: .12rem .12rem 0.11rem rgba(95, 90, 120, .9);
 }
 .light{
   --dock-panel-back:#f9f9ff;
-  --tab-background:rgb(201, 201, 228);
-  --active-tab-background:rgb(0, 149, 255);
+  --tab-background:rgb(217, 216, 225);
+  --active-tab-background:rgb(16, 160, 255);
   --active-tab-color:rgb(255, 255, 255);
-  --general-tab-background:rgb(190, 200, 255);
+  --general-tab-background:rgb(220, 220, 230);
   --general-tab-color:rgb(0, 0, 0);
   --tab-border:#efefff;
   --dock-layout-background:#fff;
 --add-new-tab-btn:rgb(161, 224, 255);
   --dock-content:#000;
   --dock-panel-border:#aaa;
+  --dock-background-border-color:rgb(235, 235, 245);
+  --shortcuts-btn-shadow: .1rem .21rem .5rem rgba(112, 129, 200, .48);
 }
 /* .dock{border-radius: 10px;} */
 .dock-nav-wrap{padding:4px;}
 .dock-layout {background-color: var(--color-white);border:solid 5px var(--dock-layout-background) }
-.dock-layout *{color:var(--dock-content)}
-/* .dock-hbox{background-color: rgba(0, 255, 255);} */
+.dock-layout h1,h2,h3,h4,h5,h6,div{color:var(--dock-content)}
+.dock-hbox{background-color: var(--dock-background-border-color);}
 /* .dock-tabpane{background-color: aqua;} */
 .dock-panel{background-color:var(--dock-panel-back);/*border-color:var(--dock-panel-border)*/border:none;}
-.dock-nav{/*background-color: rgb(255, 221, 0);*/}
-
 .dock-tab{background-color: var(--general-tab-background);
   color:var(--general-tab-color);border: solid 1px var(--tab-border); 
   border-top-left-radius: 10px;border-top-right-radius: 10px;margin:0 1px;min-width: 150px;padding:0 6px;
@@ -61,3 +61,5 @@
   padding:0px 10px;
   background-color:var(--add-new-tab-btn)
 }
+
+

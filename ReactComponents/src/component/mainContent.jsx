@@ -7,14 +7,15 @@ import  Schedule  from "./mainContents/schedule"
 import  DataGalary    from "./mainContents/galary"
 import  History   from "./mainContents/history"
 import  NoteBook  from "./mainContents/notebook"
-import Demo from "./basic";
-function MainContent(){
+// import Demo from "./basic";
+
+function MainContent(props){
     return(
         <>
          <Routes>
             <Route path="/"  element={<Home/>} /> 
-            <Route path="/analytics"  element={<Analysis/>} />
-            <Route path="/galary"  element={<Demo/>} />
+            <Route path="/analytics"  element={<Analysis theme={props.theme}/>} />
+            <Route path="/galary"  element={<DataGalary/>} />
             <Route path="/scheduler"  element={<Schedule/>} />
             <Route path="/notebook"  element={<NoteBook/>} />
             <Route path="/history"  element={<History/>} />
