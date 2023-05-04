@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 
-function HelpPage(){
+function HelpPage(props){
   let [reg_data,set_reg_data] = useState([])
   let [signin_data,set_signin_data] = useState([])
   function signin(){
@@ -49,7 +49,7 @@ function HelpPage(){
     return(<>
     <h1>Help Desk </h1>
     <h4>Using For Test Perpuses</h4>
-    <button onClick={signin}>Sign In</button>
+    {/* <button onClick={signin}>Sign In</button>
     <div>{signin_data}</div>
 
     <button onClick={signup}>Register</button>
@@ -57,7 +57,10 @@ function HelpPage(){
         }</div>
     <button onClick={signout}>Logout</button>
     <div>{reg_data
-        }</div>
+        }</div> */}
+        <div onClick={()=>console.log(props.auth)}>
+          zz
+        </div>
 
     
     {/* <button onClick={postData}>send Data</button> */}
