@@ -3,6 +3,7 @@ import light_logo from './logo/logo.png';
 import logo from './logo/llogo.png'; 
 import { GoThreeBars } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
+import { useMonaco } from "@monaco-editor/react";
 import axios from "axios";
 
 import './loginPage.css';
@@ -14,10 +15,13 @@ function TopBar(props){
     //     e.style.display = "block";
     //    }
 
-
+    
     function set_theme(theme){
         document.getElementById("OuterMostBody").className = theme
         props.setTheme(theme)
+    }
+    function set_auth(data){
+        props.setAuth(data)
     }
     let [mb0,open_mb0] =useState(false);
     let [mb1,open_mb1] =useState(false);
@@ -37,8 +41,9 @@ function TopBar(props){
         }
         const url =  "http://127.0.0.1:8000/auth/signin/";
         axios.post(url, data)
-          .then(function (res) {
-            console.log(res.data);
+          .then(function (res) {     
+            set_auth(res.data);
+            // props.setAuth(res.data);
           })
           .catch(function (error) {
             console.log(error);

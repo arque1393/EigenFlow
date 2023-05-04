@@ -12,14 +12,16 @@ import './App.css';
 
 function App() {
   let [theme,setTheme] =useState(false);
+  let [auth,setAuth] =useState(null);
 
 
   return (
     <div className="App" >
-      <TopBar theme={theme} setTheme={setTheme}/>
+ 
+      <TopBar theme={theme} setTheme={setTheme} setAuth={setAuth}/>
       <div className='container'>
-        <SideBar/>
-      <div className='Main'><MainContent theme={theme}/></div>
+          <SideBar/>
+          <div className='Main'><MainContent theme={theme} auth={auth} setAuth={setAuth}  /></div>
       </div>
     </div>
   );

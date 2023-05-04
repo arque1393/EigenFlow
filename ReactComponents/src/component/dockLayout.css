@@ -13,7 +13,7 @@
   --general-tab-color:rgb(255, 255, 255);
   --tab-border:#2a2a2f;
   --dock-background-border-color:rgb(55, 55, 75);
-  --shortcuts-btn-shadow: .12rem .12rem 0.11rem rgba(95, 90, 120, .9);
+  --shortcuts-btn-shadow: .12rem .12rem 0.0rem rgba(95, 90, 120, .9);
 }
 .light{
   --dock-panel-back:#f9f9ff;
@@ -28,9 +28,17 @@
   --dock-content:#000;
   --dock-panel-border:#aaa;
   --dock-background-border-color:rgb(235, 235, 245);
-  --shortcuts-btn-shadow: .1rem .21rem .5rem rgba(112, 129, 200, .48);
+  --shortcuts-btn-shadow: 2px 2px 0rem rgba(112, 129, 200, .48);
 }
 /* .dock{border-radius: 10px;} */
+
+.dock-top .dock-bar {
+  flex: 0 0 auto;
+  background:var(--tab-background);
+  border-bottom: none;
+  height:1.8rem;
+  padding-left: 8px;
+}
 .dock-nav-wrap{padding:4px;}
 .dock-layout {background-color: var(--color-white);border:solid 5px var(--dock-layout-background) }
 .dock-layout h1,h2,h3,h4,h5,h6,div{color:var(--dock-content)}
@@ -49,8 +57,7 @@
 .dock-tab-active *{color:var(--active-tab-color);;font-weight: 150px;}
 .dock-tab >div {padding:1px 7px; border-radius: 10px;}
 .dock-tab-btn{padding:0;}
-.dock-bar.drag-initiator{background-color:var(--tab-background) ;height:1.8rem;border:none;}
-
+.dock-bar.drag-initiator{background-color:var(--tab-background) ;border:none;}
 
 .dock-tab-close-btn {position:relative;top:0;padding-left:10px;padding-right: 5px;}
 .dock-style-gyn .dock-tab-active{background-color: rgb(0, 200, 255);color:rgb(255, 255, 255)}

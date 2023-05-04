@@ -2,7 +2,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .authentication import auth, db
 from django.contrib.auth import logout
+from django.conf import settings 
 import json
+import subprocess as sp
 
 # Create your views here.
 
@@ -43,3 +45,19 @@ def signin(req):
 def signout(req):
     logout(req)
     return Response({"message":"Logout Success"})
+
+@api_view(['post']) 
+def execute_raw(req):
+    try:
+        code = req.data["raw_code"]
+        print(code)
+        code_path = str(settings.BASE_DIR/'temp/temp.py')
+        with open(code_path,'w') as f:
+            f.write(code)        
+        result = sp.run(["python", code_path],capture_output=True, text=True)
+       
+        return Response({"result":{'output':result.stdout, "error":result.stderr},'success':True,'error':None})
+        
+
+    except:
+        return Response({'result':None, 'success':False,'error':"e"})

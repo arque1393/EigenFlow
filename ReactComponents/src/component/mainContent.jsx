@@ -14,13 +14,12 @@ function MainContent(props){
         <>
          <Routes>
             <Route path="/"  element={<Home/>} /> 
-            <Route path="/analytics"  element={<Analysis theme={props.theme}/>} />
+            <Route path="/analytics"  element={<Analysis/>}/>
             <Route path="/galary"  element={<DataGalary/>} />
             <Route path="/scheduler"  element={<Schedule/>} />
             <Route path="/notebook"  element={<NoteBook/>} />
             <Route path="/history"  element={<History/>} />
-            <Route path="/help"  element={<Help/>} />
-
+            <Route path="/help"  element={<Help auth={props.auth}/>}/>
         </Routes> 
         </>
 
