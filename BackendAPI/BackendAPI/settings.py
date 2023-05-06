@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-import firebase_admin as fadmin
-from firebase_admin import credentials
+# import firebase_admin as fadmin
+# from firebase_admin import credentials
 
 
 from pathlib import Path
@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%)1h6&zo&#kkuynb&7%735cecogr+x5w4@$%ju#%=90nn)k*0y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.29.232','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','.vercel.app','.show.sh']
 
 
 # Application definition
@@ -83,26 +83,20 @@ WSGI_APPLICATION = 'BackendAPI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.BasicAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-
-#         # 'rest_framework_simplejwt.authentication.JWTAuthentication'
-#     ]
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
     
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'UserAuthAPI.authentication.FirebaseAuthentication',
+       
     ]
 }
 # Password validation
@@ -143,7 +137,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [  # Static Directory all static files related to main app is placed here
     TEMPLATE_DIR/"static",    
 ]
-
+# STATIC_ROOT=BASE_DIR/"staticfiles_build"/"static"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -151,6 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [   
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    
 ]
 
 ## Firebase 

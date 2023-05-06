@@ -15,28 +15,28 @@ function SideBar(){
         <span className="icon"><GoThreeBars/></span>        
     </div>    
     <div className="sidebar">
-                <NavLink  activeClassName="active" to="/" >
+                <NavLink  activeClassName="active" to="base/" >
                     <span className="icon"><FaHome/></span>
                     <h5> Home </h5>
                 </NavLink>
-                <NavLink to="analytics" >
+                <NavLink to="base/analytics" >
                     <span className="icon"><TbChartHistogram/></span>
                     <h5> Analytics </h5>
                 </NavLink>
-                <NavLink to="gallery" >
+                <NavLink to="base/gallery" >
                     <span className="icon"><BsDatabaseFill/></span>
                     <h5> Data Gallery </h5>
                 </NavLink>
 
-                <NavLink to="scheduler" >
+                <NavLink to="base/scheduler" >
                     <span className="icon"><IoMdEye/></span>
                     <h5> Task Schedular </h5>
                 </NavLink>
-                <NavLink to="notebook" >
+                <NavLink to="base/notebook" >
                     <span className="icon"><FaBook/></span>
                     <h5> Note Book </h5>
                 </NavLink>
-                <NavLink to="history" >
+                <NavLink to="base/history" >
                     <span className="icon"><FaHistory/></span>
                     <h5> Histroy </h5>
                 </NavLink>
@@ -44,7 +44,7 @@ function SideBar(){
                     <span className="icon"><FaCogs/></span>
                     <h5> Extension </h5>
                 </a>
-                <NavLink to="help" >
+                <NavLink to="base/help" >
                     <span className="icon"><FaQuestionCircle/></span>
                     <h5> Help </h5>
                 </NavLink>        

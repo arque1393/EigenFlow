@@ -14,13 +14,13 @@ function MainContent(props){
     return(
         <>
          <Routes>
-            <Route path="/"  element={<Home/>} /> 
-            <Route path="/analytics"  element={<TerminalContextProvider><Analysis/></TerminalContextProvider>}/>
-            <Route path="/gallery"  element={<DataGallery/>} />
-            <Route path="/scheduler"  element={<Schedule/>} />
-            <Route path="/notebook"  element={<NoteBook/>} />
-            <Route path="/history"  element={<History/>} />
-            <Route path="/help"  element={<TerminalContextProvider><HelpPage auth={props.auth}/></TerminalContextProvider>}/>
+            <Route path="base/"  element={<Home/>} /> 
+            <Route path="base/analytics"  element={<TerminalContextProvider><Analysis/></TerminalContextProvider>}/>
+            <Route path="base/gallery"  element={<DataGallery/>} />
+            <Route path="base/scheduler"  element={<Schedule/>} />
+            <Route path="base/notebook"  element={<NoteBook/>} />
+            <Route path="base/history"  element={<History/>} />
+            <Route path="base/help"  element={<TerminalContextProvider><HelpPage auth={props.auth}/></TerminalContextProvider>}/>
         </Routes> 
         </>
 

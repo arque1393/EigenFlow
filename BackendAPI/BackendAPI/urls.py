@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
+def rdirect(req):
+    return redirect('/base')
 
 urlpatterns = [
+    path("",rdirect),
     path('admin/', admin.site.urls),
     path('auth/',include('UserAuthAPI.urls')),
     path('base/',include('base.urls')),
