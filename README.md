@@ -19,6 +19,6 @@ Not only a simple IDE along with a group or team or project management system in
 
 
 ### Screenshots 
-![Image](screenshots.jpeg)]
+![Image](screenshot.jpeg)
 
 
