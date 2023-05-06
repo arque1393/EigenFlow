@@ -48,3 +48,8 @@
     color: var(--color-info-dark);
     font-size: 1.6rem;  position:relative; top:3px;    transition: all 300ms ease ;}
   
+    .dock-tab-close-btn{
+  
+      padding: 0;
+    }
+    .dock-tab-close-btn::before{content:"X"}

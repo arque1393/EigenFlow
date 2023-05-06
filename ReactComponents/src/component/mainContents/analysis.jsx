@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Editor,{useMonaco} from '@monaco-editor/react'
+import Terminal from './terminal';
 import {DockLayout} from 'rc-dock';
 import axios from 'axios';
 import '../dockLayout.css';
@@ -7,7 +8,7 @@ import './analysis.css';
 import {BiSave,BiTable} from "react-icons/bi"
 import {AiOutlineFolderOpen,AiOutlineDotChart,AiOutlineLineChart,
   AiOutlineBarChart,AiOutlineAreaChart,AiOutlinePieChart} from "react-icons/ai";
-import {GrGraphQl} from "react-icons/gr";
+import {GrGraphQl,GrClose} from "react-icons/gr";
 import {GoSync} from "react-icons/go";
 import {FiUpload} from "react-icons/fi";
 import {BsFillPlayFill} from "react-icons/bs";
@@ -22,21 +23,21 @@ function getTheme(){
 class Analysis extends React.Component {
   constructor() {
         super();
-        this.myRef = React.createRef(null);
-        this.state={console_output :[],console_error:[]};
-
+        this.state={console:{output :[],error:[]},editor:{"2":"989\naegsdg"},saved_dock_layout:null};
+        this.tempPath="";
+        this.editorRef = React.createRef(null);
+        this.monacoRef = React.createRef(null);
+        this.editors={}
         this.count = 0;  // General Variable  
         this.solution = {title:'Solution Explorer', content: (<div><h1>Tab1 Tab</h1></div>),closable:true,};// Solution Component
-        this.current_editor=null;
+        
         this.codeEditor={
-          tabs: [this.newEditorTab(), this.newEditorTab()],
+          id:"codeEditor",
+          tabs: [],
           panelLock: {
             minWidth: 200,
-            panelExtra: (panelData, context) => (
-              <button className='add-new-tab-btn' onClick={() => context.dockMove(this.newEditorTab(), panelData, 'middle')}>
-                add </button>
-            )
           }
+
         }  
         this.shortcuts={tabs:[{ id:"shortcuts",title:'Shortcuts', 
               content: (<>
@@ -44,7 +45,7 @@ class Analysis extends React.Component {
                   <div className='shortcuts-ctrl'>
                   <div className='btn' onClick={()=>this.showValue()}><span className='icon'><BiSave/></span></div>
                   <div className='btn'><span className='icon'><AiOutlineFolderOpen/></span></div>
-                  <div className='btn'><span className='icon'><VscNewFile/></span></div>
+                  <div className='btn' onClick={()=>this.addTab(`file${++this.count}`,'')}><span className='icon'><VscNewFile/></span></div>
                   <div className='btn'><span className='icon'><GoSync/></span></div>
                   <div className='btn'><span className='icon'><BiTable/></span></div>          
                   <div className='btn'><span className='icon'><FiUpload/></span></div>       
@@ -53,7 +54,7 @@ class Analysis extends React.Component {
                 <div className='shortcuts-ctrl'>
                   <div className='btn' onClick={()=>this.execute()}><span className='icon'><BsFillPlayFill/></span></div>
                   <div className='btn'><span className='icon'><VscDebugLineByLine/></span></div>
-                  <div className='btn'><span className='icon'><VscDebugAll/></span></div>
+                  <div className='btn' onClick={()=>this.debug()}><span className='icon'><VscDebugAll/></span></div>
                   <div className='btn'><span className='icon'><VscDebugRestart/></span></div>          
                 </div>
                 <h6> Diagrams </h6>
@@ -70,12 +71,12 @@ class Analysis extends React.Component {
               content: (
                 <Context.Consumer>
                   {(context) => (
-                      <div>
+                      <div className='TERMINALX'>
                           {context.console_output.map( 
-                            (item, i) => ( <>
-                                <div>Out[{i}]</div> 
-                                <div>{item}</div>
-                            </>))}
+                            (item, i) => ( <div className='outline'>
+                                <div style={{marginRight:"5px"}}>Out[{i}]: </div> 
+                                <div style={{whiteSpace:'pre'}}>{item}</div>
+                            </div>))}
                       </div> 
                   )}
                 </Context.Consumer>                
@@ -97,8 +98,19 @@ class Analysis extends React.Component {
               </Context.Consumer>  
               
               ),  
-                closable:true,},],size:60
+                closable:true,
+            },
+              
+            {id:"terminal",
+            title:'Terminal', 
+            content: (<Terminal/>)
+            }  
+              
+              ],size:60
         }
+
+
+
         this.Tools={tabs:[{ id:"Tools",title:'Tools', 
               content: (<div><h3>Tools</h3><p>Make it easy</p></div>),  
               closable:true,}]}
@@ -127,64 +139,100 @@ class Analysis extends React.Component {
             ]
           }
         }
+      
       }
+
+  getRef = (r) => {
+    this.dockLayout = r;
+  };
+
 
   add_output(out){
     let state = this.state
     if(out.result.output){
-      state.console_output.push(out.result.output);
+      state.console.output.push(out.result.output);
       this.setState(state);
     }
     else{
-      state.console_error.push(out.result.error);
+      state.console.error.push(out.result.error);
       this.setState(state);
     }
 
   }
 
-  handleEditorDidMount(editor, monaco) {
-    this.current_editor = editor
+  handleEditorDidMount(editor, monaco) {    
     monaco.editor.setTheme(`vs-${document.getElementById("OuterMostBody").className}`);
-    this.myRef.current=editor
-    console.log(this.myRef.current)
+    this.editorRef.current=editor;
+    this.monacoRef.current=monaco;
+    
+    this.editors[`${this.tempPath}`]=editor
+    console.log(this.editors)
   }
-  showValue() {
-    console.log(this.myRef.current.getValue())
-  }
+
   execute(){
-    const code = this.myRef.current.getValue()
-    const url="http://127.0.0.1:8000/auth/execute_raw/"
-    axios.post(url, {   
-      raw_code:code,
-     })
-    .then((res)=>this.add_output(res.data))
-    .catch(function (error) {
-      console.log(error);
-    });
+    if(this.editorRef.current){
+      const code = this.editorRef.current.getValue()
+      const url="http://127.0.0.1:8000/auth/execute_raw/"
+      axios.post(url, {   
+        raw_code:code,
+      })
+      .then((res)=>this.add_output(res.data))
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+   
   }
-  newEditorTab() { /*method*/ 
-    return { id: `this.newEditorTab${++this.count}`, title: 'new file', closable:true,
-      content: (<Editor height="100vh" width="100%" theme="myTheme" /*{`vs-${document.getElementById("OuterMostBody").className}`} */defaultLanguage='python' style={{top:"20px"}} onMount={(editor, monaco)=>this.handleEditorDidMount(editor, monaco)}/>),};
+
+
+  debug() {
+    let tab = this.dockLayout.find('codeEditor').tabs[0]
+    console.log(tab)
   }
-  
 
 
 
+  addTab = (path,code) => {
+    this.tempPath=path;
+    this.dockLayout.dockMove(this.newEditorTab(path,code), 'codeEditor', 'middle');
+  };
+  newEditorTab(path, code) { /*method*/ 
+    return { id:path ,closable:true,
+      title:(<><div className='editor-tab-title' onClick={()=>{this.editorRef.current=this.editors[path]}}>
+        {path}</div>
 
+       
+      </>),
+      content: (
 
+      <Editor  height="100vh" width="100%" theme="myTheme" defaultLanguage='python' style={{top:"20px"}} 
+      onChange={(a,b)=>console.log(a,b)}
+      path={path}
+      onMount={(editor, monaco)=>this.handleEditorDidMount(editor, monaco)}/> 
+      // )}    
+      // </Context.Consumer>
+      ),};
+  }
+  componentWillUnmount()
+  {
 
-
-
-
-  
-
-
-
+ 
+  }
+  componentDidMount()
+  {
+    // if(this.state.saved_dock_layout){this.dockLayout.loadLayout(this.state.saved_dock_layout);
+    // console.log("dfhdj")}
+    // console.log("Mounted")
+    // console.log(this.state.saved_dock_layout)
+    // let tab = document.getElementById()
+    document.querySelector(".dock-tab-close-btn").addEventListener("fdg",(e)=>this.console.log(e))
+  }
   render() {  
+    
     return (
-      <Context.Provider value={{console_output:this.state.console_output,console_error:this.state.console_error}}>
+      <Context.Provider value={{console_output:this.state.console.output,console_error:this.state.console.error,value:"This is great\n\niam also"}}>
 
-        <DockLayout defaultLayout={this.layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"/>
+        <DockLayout ref={this.getRef} defaultLayout={this.layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"/>
       </Context.Provider>
     );
   }

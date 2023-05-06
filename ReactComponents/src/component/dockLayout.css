@@ -1,15 +1,14 @@
 /* // dock-style-place-holder
 // when all the panels are floated we need a place holder in the dock box to handle drag over event */
 .dark{
-  --dock-panel-back:#21212e;
-  --tab-background:#403a50;
-  --dock-layout-background:#1f1f33;  
+  --dock-panel-back:#141420;
+  --tab-background:#333045;
+  --dock-layout-background:#000;  
   --dock-content:#ffffff;
   --dock-panel-border:#a997be;
-  --add-new-tab-btn:rgb(0, 136, 203);
-  --active-tab-background:rgb(5, 0, 15);
+  --active-tab-background:rgb(10, 7, 15);
   --active-tab-color:rgb(255, 255, 255);
-  --general-tab-background:#2f223d;
+  --general-tab-background:#1f1235;
   --general-tab-color:rgb(255, 255, 255);
   --tab-border:#2a2a2f;
   --dock-background-border-color:rgb(55, 55, 75);
@@ -59,7 +58,7 @@
 .dock-tab-btn{padding:0;}
 .dock-bar.drag-initiator{background-color:var(--tab-background) ;border:none;}
 
-.dock-tab-close-btn {position:relative;top:0;padding-left:10px;padding-right: 5px;}
+.dock-tab-close-btn {position:relative;top:0;padding:0px;}
 .dock-style-gyn .dock-tab-active{background-color: rgb(0, 200, 255);color:rgb(255, 255, 255)}
 
 .dock-extra-content .add-new-tab-btn{

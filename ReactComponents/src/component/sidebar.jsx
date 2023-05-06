@@ -23,9 +23,9 @@ function SideBar(){
                     <span className="icon"><TbChartHistogram/></span>
                     <h5> Analytics </h5>
                 </NavLink>
-                <NavLink to="galary" >
+                <NavLink to="gallery" >
                     <span className="icon"><BsDatabaseFill/></span>
-                    <h5> Data Galary </h5>
+                    <h5> Data Gallery </h5>
                 </NavLink>
 
                 <NavLink to="scheduler" >

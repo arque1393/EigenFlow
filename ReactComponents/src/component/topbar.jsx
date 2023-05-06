@@ -161,7 +161,7 @@ function TopBar(props){
                         <hr style={{border:"solid 1px #aaaaff"}}/>
                         <a className="dropdown-item" href="#">Go to
                         {/* <div className="sub-drop">
-                            <a className="dropdown-item" href="#">Data Galary</a>
+                            <a className="dropdown-item" href="#">Data Gallery</a>
                             <a className="dropdown-item" href="#">Profile </a>
                             <a className="dropdown-item" href="#"> Back   +</a>
                          </div> */}

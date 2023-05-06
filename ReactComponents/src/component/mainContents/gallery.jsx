@@ -1,10 +1,10 @@
 import React from "react";
 
-function DataGalary(){
+function DataGallery(){
     return(<>
-    <h1> Data Galary  </h1>
+    <h1> Data Gallery  </h1>
     <h5>Not Implemented Yet</h5>
     </>
     );
 }
-export default DataGalary;
+export default DataGallery;

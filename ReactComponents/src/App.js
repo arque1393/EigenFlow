@@ -5,16 +5,9 @@ import TopBar from './component/topbar'
 import MainContent from './component/mainContent'
 import './App.css';
 
-
-
-    
-
-
 function App() {
   let [theme,setTheme] =useState(false);
   let [auth,setAuth] =useState(null);
-
-
   return (
     <div className="App" >
  
@@ -26,18 +19,4 @@ function App() {
     </div>
   );
 }
-
-
-
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//     
-   
-//     </div>
-//   );
-// }
-
 export default App;
