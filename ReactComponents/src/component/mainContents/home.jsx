@@ -1,7 +1,7 @@
 function Home(){
     return(<>
     <h1> Main Content Static </h1>
-    <div style={{position:"relative",display:"grid",gridTemplateColumns:"2fr 1fr",gap:"2.5rem", padding:"0 1rem", height:"88vh"}}>
+    <div className="inner_main_content">
     <div className="insights" style={{overflowY:"scroll"}}>    
         <div className="project_item">
             <div className="title"><h4>Dark Worrier Data</h4></div>
@@ -67,7 +67,7 @@ function Home(){
         </div>
     </div>
     <div className="Discussion">
-    kkk
+    <h1>Discuss your thoughts</h1>
     </div>
     </div>
     </>

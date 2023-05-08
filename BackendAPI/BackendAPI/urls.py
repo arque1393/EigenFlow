@@ -24,7 +24,7 @@ def rdirect(req):
 urlpatterns = [
     path("",rdirect),
     path('admin/', admin.site.urls),
-    path('auth/',include('UserAuthAPI.urls')),
+    path('api/',include('UserAuthAPI.urls')),
     path('base/',include('base.urls')),
 ]
 urlpatterns+=staticfiles_urlpatterns()
