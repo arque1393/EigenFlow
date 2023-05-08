@@ -7,7 +7,7 @@ function Terminal(props){
     const inpRef = useRef();
     let [prevList, setPrevList] = useState([])
     let [isDone,setIsDone] = useState(false)
-    const url="http://127.0.0.1:8000/auth/execute_raw/"
+    const url="https://eigen-flow.onrender.com/api/execute_raw/"
     return(
         <div className='TERMINALX' onClick={()=>inpRef.current.focus()}>
             <div className="output">

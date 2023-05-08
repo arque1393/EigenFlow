@@ -145,6 +145,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [   
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://eigen-flow.onrender.com",
+    '13.228.225.19','18.142.128.26','54.254.162.138'
     
 ]
 
