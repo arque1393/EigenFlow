@@ -37,3 +37,4 @@ sqlparse==0.4.4
 sseclient==0.0.27
 tzdata==2023.3
 urllib3==2.0.2
+gunicorn
