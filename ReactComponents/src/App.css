@@ -25,7 +25,7 @@
     --dropdown-border: #30363f;
     --padding-1: 1.2rem;
     --box-shadow: .3rem .3rem .7rem var(--color-light);
-    --menu-shadow: .3rem .41rem .7rem rgb(77, 72, 90);
+    --menu-shadow: .2rem .21rem 0.21rem rgb(57, 45, 65,.61);
 }
 .light{
     --color-primary: rgb(90, 70, 185);/*#7773ec;*/
@@ -110,7 +110,7 @@ b{color: var(--color-dark-variant)}
     justify-content: space-around;}
 .top .right-bar .menu .menu-btn{
     text-align: center;justify-content: space-between;height: 1.9rem;
-    border-radius: 9px;padding:0rem  .5rem;
+    border-radius: 9px;padding:0rem  0rem;
     max-width: max-content;transition: .2s;
     font-size: 1.17rem;font-weight:bold;color:var(--color-dark-variant) }
     .top .right-bar .menu .menu-btn:hover{
@@ -254,13 +254,13 @@ background: transparent;    color: var(--color-dark);}
 }
 @media (max-width: 900px) {    
     .top .right-bar {width:28rem;}
-    .top .right-bar .menu .menu-btn{padding:.4rem  .4rem;}
+    .top .right-bar .menu .menu-btn{padding:0rem  .4rem;}
 }
 @media (max-width: 800px) {
     .top{padding:0 2rem;}
     .top .right-bar{gap:.5rem}
     .top .right-bar .menu {width: 22rem;}
-    .top .right-bar .menu .menu-btn{padding:.4rem  .2rem;}
+    .top .right-bar .menu .menu-btn{padding:0rem  .2rem;}
 }
 @media (max-width: 690px) {
     .inner_main_content{display:block; overflow:scroll}

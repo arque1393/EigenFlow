@@ -3,8 +3,11 @@ import Editor,{useMonaco} from '@monaco-editor/react'
 import Terminal from './terminal';
 import {DockLayout} from 'rc-dock';
 import axios from 'axios';
+import ReactFlowProvider from "reactflow";
+import DataFlowGraph from './DataFlowGraph/graphModel';
 import '../dockLayout.css';
 import './analysis.css';
+import {TiFlowSwitch} from 'react-icons/ti'
 import {BiSave,BiTable} from "react-icons/bi"
 import {AiOutlineFolderOpen,AiOutlineDotChart,AiOutlineLineChart,
   AiOutlineBarChart,AiOutlineAreaChart,AiOutlinePieChart} from "react-icons/ai";
@@ -13,7 +16,6 @@ import {GoSync} from "react-icons/go";
 import {FiUpload} from "react-icons/fi";
 import {BsFillPlayFill} from "react-icons/bs";
 import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart} from "react-icons/vsc";
-
 const Context = React.createContext();
 
 function getTheme(){
@@ -31,8 +33,8 @@ class Analysis extends React.Component {
         this.count = 0;  // General Variable  
         this.solution = {title:'Solution Explorer', content: (<div><h1>Tab1 Tab</h1></div>),closable:true,};// Solution Component
         
-        this.codeEditor={
-          id:"codeEditor",
+        this.editor_panel={
+          id:"editor_panel",
           tabs: [],
           panelLock: {
             minWidth: 200,
@@ -47,6 +49,7 @@ class Analysis extends React.Component {
                   <div className='btn'><span className='icon'><AiOutlineFolderOpen/></span></div>
                   <div className='btn' onClick={()=>this.addTab(`file${++this.count}`,'')}><span className='icon'><VscNewFile/></span></div>
                   <div className='btn'><span className='icon'><GoSync/></span></div>
+                  <div className='btn' onClick={()=>this.addDataFlowGraphEditor(`path${this.count}`)}><span className='icon'><TiFlowSwitch/></span></div>
                   <div className='btn'><span className='icon'><BiTable/></span></div>          
                   <div className='btn'><span className='icon'><FiUpload/></span></div>       
                 </div>
@@ -125,7 +128,7 @@ class Analysis extends React.Component {
                     mode: "horizontal",         
                     children:[  
                       {tabs:[{id:"directort",title:"Directory Tree",content:(<p> Label 1</p>)} ],size:40},
-                      this.codeEditor,
+                      this.editor_panel,
                       {mode: "vertical",children:[this.shortcuts,this.Tools,],size:45,},
                     ]
                   },
@@ -186,7 +189,7 @@ class Analysis extends React.Component {
 
 
   debug() {
-    let tab = this.dockLayout.find('codeEditor').tabs[0]
+    let tab = this.dockLayout.find('editor_panel').tabs[0]
     console.log(tab)
   }
 
@@ -194,7 +197,7 @@ class Analysis extends React.Component {
 
   addTab = (path,code) => {
     this.tempPath=path;
-    this.dockLayout.dockMove(this.newEditorTab(path,code), 'codeEditor', 'middle');
+    this.dockLayout.dockMove(this.newEditorTab(path,code), 'editor_panel', 'middle');
   };
   newEditorTab(path, code) { /*method*/ 
     return { id:path ,closable:true,
@@ -206,12 +209,27 @@ class Analysis extends React.Component {
       content: (
 
       <Editor  height="100vh" width="100%" theme="myTheme" defaultLanguage='python' style={{top:"20px"}} 
-      onChange={(a,b)=>console.log(a,b)}
+      // onChange={(a,b)=>console.log(a,b)}
       path={path}
       onMount={(editor, monaco)=>this.handleEditorDidMount(editor, monaco)}/> 
       // )}    
       // </Context.Consumer>
       ),};
+  }
+
+  addDataFlowGraphEditor(path,default_graph){
+    this.tempPath=path;
+    this.dockLayout.dockMove(this.newDataFlowGraphEditorTab(path,default_graph), 'editor_panel', 'middle');
+  }
+  newDataFlowGraphEditorTab(path,default_graph = null){
+    return {
+      id:path,closable:true,title:`G:${path}`,
+      content:(
+
+        <DataFlowGraph/>
+      
+    )
+    }
   }
   componentWillUnmount()
   {
@@ -220,12 +238,7 @@ class Analysis extends React.Component {
   }
   componentDidMount()
   {
-    // if(this.state.saved_dock_layout){this.dockLayout.loadLayout(this.state.saved_dock_layout);
-    // console.log("dfhdj")}
-    // console.log("Mounted")
-    // console.log(this.state.saved_dock_layout)
-    // let tab = document.getElementById()
-    document.querySelector(".dock-tab-close-btn").addEventListener("fdg",(e)=>this.console.log(e))
+    document.querySelector(".dock-tab-close-btn").addEventListener("fdg",(e)=>console.log(e))
   }
   render() {  
     
