@@ -141,7 +141,7 @@ function TopBar(props){
         </div>
     <div className="logo">
         <img src={props.theme==="dark"?logo:light_logo}/>
-        <h2><span className="danger">Eigen</span>Flow</h2>
+        <h3><span className="danger">Eigen</span>Flow</h3>
     </div>
 
     <div className="hamburger" onClick={()=>set_slided(!slided)}><GoThreeBars/>

@@ -2,7 +2,7 @@
 // when all the panels are floated we need a place holder in the dock box to handle drag over event */
 .dark{
   --dock-panel-back:#141420;
-  --tab-background:#333045;
+  --tab-background:#292539;
   --dock-layout-background:#000;  
   --dock-content:#ffffff;
   --dock-panel-border:#a997be;
@@ -12,7 +12,7 @@
   --general-tab-color:rgb(255, 255, 255);
   --tab-border:#2a2a2f;
   --dock-background-border-color:rgb(55, 55, 75);
-  --shortcuts-btn-shadow: .12rem .12rem 0.0rem rgba(95, 90, 120, .9);
+  --shortcuts-btn-shadow: .12rem .12rem 0.0rem rgba(75, 70, 100, .9);
 }
 .light{
   --dock-panel-back:#f9f9ff;
@@ -35,10 +35,11 @@
   flex: 0 0 auto;
   background:var(--tab-background);
   border-bottom: none;
-  height:1.8rem;
+  height:1.4rem;
+  padding-top:0px ;
   padding-left: 8px;
 }
-.dock-nav-wrap{padding:4px;}
+.dock-nav-wrap{padding:0px;}
 .dock-layout {background-color: var(--color-white);border:solid 5px var(--dock-layout-background) }
 .dock-layout h1,h2,h3,h4,h5,h6,div{color:var(--dock-content)}
 .dock-hbox{background-color: var(--dock-background-border-color);}

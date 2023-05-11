@@ -4,7 +4,7 @@
 #shortcuts::-webkit-scrollbar { width: 0px !important }
 #shortcuts h6{margin-top:5px}
 .shortcuts-ctrl{
-    position:relative;display:grid;gap:.4rem;grid-column-gap: .4rem;                              
+    position:relative;display:grid;gap:.4rem;grid-column-gap: .1em;                              
     grid-template-columns:repeat(auto-fit, minmax(2.5rem, 0fr));
     justify-content: center;
    
