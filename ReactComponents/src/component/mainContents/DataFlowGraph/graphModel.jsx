@@ -4,7 +4,7 @@ import ReactFlow, {
   addEdge,  useNodesState,  useEdgesState,  useReactFlow,
   Controls,  Background,} from 'reactflow';
 // import styled, { ThemeProvider } from 'styled-components';
-import specialNode from './customeNode'
+import {SpecialNode} from './customNode'
 import 'reactflow/dist/style.css';
 import './graphModel.css'
 import './graphModel.css';
@@ -56,7 +56,7 @@ let node = useRef(null)
         defaultNodes={defaultNodes}
         defaultEdges={defaultEdges}
         defaultEdgeOptions={edgeOptions}
-        nodeTypes={{special:specialNode}}
+        nodeTypes={{special:SpecialNode}}
         fitView
         style={{}}
         connectionLineStyle={connectionLineStyle}

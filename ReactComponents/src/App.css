@@ -73,7 +73,7 @@ body{   font-family: 'Suwannaphum', serif;
     border:solid 1px var(--color-info-light); overflow: hidden;
     height:2.15rem;width:2.15rem;    border-radius: 5px;justify-content: center;
     color: var(--color-info-dark);   align-items: center;  transition: 
-    all 300ms ease; background-color: var(--dock-panel-back); 
+    all .3s ease; background-color: var(--dock-panel-back); 
     box-shadow: var( --shortcuts-btn-shadow);  
   }
   
@@ -93,9 +93,9 @@ b{color: var(--color-dark-variant)}
 .danger {font-weight:1000px; color: var(--color-danger);}
 .success {color: var(--color-success);}
 .warning {color: var(--color-warning);}
-.top {gap:1rem;width: 100%;height:1.8rem;z-index: 100;padding:2px;
-    background:var(--color-top);display: flex;align-items: center;gap:2rem;
-    justify-content: space-around;box-shadow:var(--box-shadow);overflow: hidden;}
+.top {width: 100%;height:1.8rem;z-index: 100;padding:2px 50px;
+    background:var(--color-top);display: flex;align-items:center;gap:2rem;
+    justify-content: space-between;box-shadow:var(--box-shadow);overflow: hidden;}
 .logo {display: flex;  gap: 0.1rem;padding: 0 0.2rem;color:var(--color-dark)}
 .logo img {margin-top: .46rem;   width: 1.6rem;  height: 1.6rem; }
 .menu-content{display: inline-block;}
@@ -143,55 +143,55 @@ b{color: var(--color-dark-variant)}
 
 
 
-.aside{height:calc(100vh - 1.8rem);max-width: max-content;overflow: hidden;min-width:max-content;transition: all 400ms ease; /*background-color: var(--color-white);*/}
+.aside{height:calc(100vh - 1.8rem);max-width: max-content;overflow: hidden;min-width:max-content;transition: all .3s ease; /*background-color: var(--color-white);*/}
 .aside *{ font-family: 'Suwannaphum', serif;}
 .aside .hamburger-right{
     display: flex; justify-content: left;        
     margin-left: 1.4rem;  color: var(--color-info-dark);
-    align-items: center;  transition: all 300ms ease; 
+    align-items: center;  transition: all .3s ease; 
    position: relative;padding-right:1.4rem;
 }
 .aside .hamburger-right span{
-    cursor: pointer; color: var(--color-dark);
-    font-size: 1.6rem; transition: all .3s ease ;
+    cursor: pointer; color: var(--color-dark);height: 1.9rem;
+    font-size: 1.4rem; transition: all .3s ease ;
 }
-.aside .sidebar { background:var(--color-white); display: flex;width: max-content;transition: all 400ms ease ;
+.aside .sidebar { background:var(--color-white); display: flex;width: max-content;transition: all .3s ease ;
     flex-direction: column;  height: inherit; position: relative; overflow: scroll;
 }
 .aside .sidebar::-webkit-scrollbar { width: 0 !important }
 .aside ::-webkit-scrollbar { width: 0 !important }
-.aside h5 {font-weight: 600;color: var(--color-info-dark);}
+.aside h6 {font-weight: 700;color: var(--color-info-dark);}
 .aside .sidebar a{
     display: flex; gap: 1.4rem; justify-content: left;        
     margin-left: 1.4rem;  color: var(--color-info-dark);
-    align-items: center;  transition: all 300ms ease; 
-    height: 3.5rem;position: relative;padding-right:1.4rem;}
-    .aside .sidebar a > h5{transition: all 300ms ease; }
+    align-items: center;  transition: all .3s ease; 
+    height: 2.5rem;position: relative;padding-right:1.4rem;}
+    .aside .sidebar a > h6{transition: all .3s ease; }
 .aside .sidebar  span{
-    font-size: 1.6rem;  position:relative; top:3px;    transition: all 300ms ease ;}
+    font-size: 1.4rem;  position:relative; top:3px;    transition: all .3s ease ;}
 .blank{min-height:4rem;}
 .aside .sidebar a.active {
     background:var(--left-bar-highlighted-color);
     color: var(--color-primary);
     margin-left: 0;}
-    .aside .sidebar a.active>h5{color:var(--color-primary)}   
+    .aside .sidebar a.active>h6{color:var(--color-primary)}   
 .aside .sidebar a.active:before {
     content: "";  width: 6px;  height: 100%;
     background: var(--color-primary);}
 .aside .sidebar a.active span { 
     color: var(--color-primary); }
-.aside .sidebar a:hover>h5 { color: var(--color-primary);}
+.aside .sidebar a:hover>h6 { color: var(--color-primary);}
 .aside .sidebar a:hover { color: var(--color-primary);}
 
 
 /* #check1{display:none;} */
 
-.shrink {max-width:48px;min-width:48px;}
+.shrink {max-width:40px;min-width:40px;}
 
-.shrink .sidebar a {margin-left:.6rem;gap:.85rem}
+.shrink .sidebar a {margin-left:.51rem;gap:.8rem}
 
-.shrink .sidebar a.active {gap:.6rem}
-.shrink .sidebar a.active:before {width:3px;gap:.22rem}
+.shrink .sidebar a.active {gap:.5rem}
+.shrink .sidebar a.active:before {width:2px;gap:.22rem}
 .shrink .hamburger-right{margin-left:.6rem;}
 .Main { 
     width:100%;position:relative;padding:0;
@@ -209,7 +209,7 @@ background-color:none ;}
     padding: 1rem;margin-top: .2rem;
     border-radius: var(--card-border-radius);    
     box-shadow: var(--box-shadow);
-    transition: all 300ms ease;
+    transition: all .3s ease;
     /* max-width: fit-content;      */
 }
     .Main .insights .project_item *{color:var(--color-dark)}
@@ -243,7 +243,7 @@ background-color:none ;}
 
 
 @media (max-width: 1080px) {
-    .top{padding: 0 1rem;}
+    .top{padding: 2px 50px;}
     .top .right-bar {width:32rem;gap:1rem;}
 }
 @media (max-width: 900px) {    
@@ -251,14 +251,14 @@ background-color:none ;}
     .top .right-bar .menu .menu-btn{padding:0rem  .4rem;}
 }
 @media (max-width: 800px) {
-    .top{padding:0 2rem;}
+    .top{padding:2px 50px;}
     .top .right-bar{gap:.5rem}
     .top .right-bar .menu {width: 22rem;}
     .top .right-bar .menu .menu-btn{padding:0rem  .2rem;}
 }
 @media (max-width: 690px) {
     .inner_main_content{display:block; overflow:scroll}
-    .top{padding:0 2rem;justify-content:space-between; overflow:visible;}
+    .top{padding:2px 50px;justify-content:space-between; overflow:visible;}
     .top .hamburger{display:block;}
     /**** Right Bar CSS Code Begin *****/
     .top .right-bar{   max-width:0px;overflow: hidden;

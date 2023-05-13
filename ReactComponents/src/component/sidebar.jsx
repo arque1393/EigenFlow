@@ -17,36 +17,36 @@ function SideBar(){
     <div className="sidebar">
                 <NavLink  activeClassName="active" to="base/" >
                     <span className="icon"><FaHome/></span>
-                    <h5> Home </h5>
+                    <h6> Home </h6>
                 </NavLink>
                 <NavLink to="base/analytics" >
                     <span className="icon"><TbChartHistogram/></span>
-                    <h5> Analytics </h5>
+                    <h6> Analytics </h6>
                 </NavLink>
                 <NavLink to="base/gallery" >
                     <span className="icon"><BsDatabaseFill/></span>
-                    <h5> Data Gallery </h5>
+                    <h6> Data Gallery </h6>
                 </NavLink>
 
                 <NavLink to="base/scheduler" >
                     <span className="icon"><IoMdEye/></span>
-                    <h5> Task Schedular </h5>
+                    <h6> Task Schedular </h6>
                 </NavLink>
                 <NavLink to="base/notebook" >
                     <span className="icon"><FaBook/></span>
-                    <h5> Note Book </h5>
+                    <h6> Note Book </h6>
                 </NavLink>
                 <NavLink to="base/history" >
                     <span className="icon"><FaHistory/></span>
-                    <h5> Histroy </h5>
+                    <h6> Histroy </h6>
                 </NavLink>
                 <a  activeClassName="inactive" to="#" >
                     <span className="icon"><FaCogs/></span>
-                    <h5> Extension </h5>
+                    <h6> Extension </h6>
                 </a>
                 <NavLink to="base/help" >
                     <span className="icon"><FaQuestionCircle/></span>
-                    <h5> Help </h5>
+                    <h6> Help </h6>
                 </NavLink>        
              
         </div>
