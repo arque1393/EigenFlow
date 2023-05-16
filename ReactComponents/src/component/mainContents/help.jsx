@@ -3,8 +3,6 @@ import React, { useState }  from "react";
 import axios from "axios";
 // {useEffect,useState}
 // import GraphModel from './modelGraph'
-import ReactFlowProvider from 'reactflow';
-import DataFlowGraph from './DataFlowGraph/graphModel';
 
 
 function HelpPage(props){
@@ -12,10 +10,7 @@ function HelpPage(props){
     return(<>
     <h1>Help Desk </h1>
     <h4>Using For Test Perpuses</h4>
-    {/* <ReactFlowProvider> */}
-      <DataFlowGraph/>
-    {/* </ReactFlowProvider>     */}
-    {/* <GraphModel/> */}
+    
     </>
     );
 }

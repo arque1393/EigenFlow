@@ -47,7 +47,7 @@
 .dock-panel{background-color:var(--dock-panel-back);/*border-color:var(--dock-panel-border)*/border:none;}
 .dock-tab{background-color: var(--general-tab-background);
   color:var(--general-tab-color);border: solid 1px var(--tab-border); 
-  border-top-left-radius: 10px;border-top-right-radius: 10px;margin:0 1px;min-width: 150px;padding:0 6px;
+  border-top-left-radius: 10px;border-top-right-radius: 10px;margin:0 1px;min-width: 10px;padding:0 6px;
 }
 .dock-tab *{font-size: .94rem;font-family: 'Crete Round', serif;font-weight: 100px;}
 .dock-tab-btn{position:relative;font-size: large;}

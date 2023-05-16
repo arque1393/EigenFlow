@@ -39,7 +39,7 @@ function TopBar(props){
              email:event.target[0].value,
             password:event.target[1].value
         }
-        const url =  "https://eigen-flow.onrender.com/api/signin/";
+        const url =  "http://127.0.0.1:8000/api/signin/";
         axios.post(url, data)
           .then(function (res) {     
             set_auth(res.data);
@@ -52,7 +52,7 @@ function TopBar(props){
     }
     function signupSubmit(event){
         event.preventDefault()
-        const url =  "https://eigen-flow.onrender.com/api/signup/";
+        const url =  "http://127.0.0.1:8000/api/signup/";
         const username   =event.target[0].value
         const email  =event.target[1].value
         const password1  = event.target[2].value

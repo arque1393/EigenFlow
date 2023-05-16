@@ -1,6 +1,6 @@
 import {Route, Routes } from "react-router-dom";
 import React from "react";
-import  Analysis  from "./mainContents/analysis"
+import  Analysis  from "./mainContents/analysis/analysis"
 import  HelpPage  from "./mainContents/help"
 import  Home     from "./mainContents/home"
 import  Schedule  from "./mainContents/schedule"

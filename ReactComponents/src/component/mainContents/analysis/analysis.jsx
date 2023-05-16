@@ -3,7 +3,6 @@ import Editor,{useMonaco} from '@monaco-editor/react'
 import Terminal from './terminal';
 import {DockLayout} from 'rc-dock';
 import axios from 'axios';
-import ReactFlowProvider from "reactflow";
 import DataFlowGraph from './DataFlowGraph/graphModel';
 import '../dockLayout.css';
 import './analysis.css';
@@ -29,7 +28,9 @@ class Analysis extends React.Component {
         this.tempPath="";
         this.editorRef = React.createRef(null);
         this.monacoRef = React.createRef(null);
+        this.tabRef= React.createRef(null)
         this.editors={}
+        this.tabs={}
         this.count = 0;  // General Variable  
         this.solution = {title:'Solution Explorer', content: (<div><h1>Tab1 Tab</h1></div>),closable:true,};// Solution Component
         
@@ -45,7 +46,7 @@ class Analysis extends React.Component {
               content: (<>
                 <h6>General</h6>
                   <div className='shortcuts-ctrl'>
-                  <div className='btn' onClick={()=>this.showValue()}><span className='icon'><BiSave/></span></div>
+                  <div className='btn' onClick={()=>this.save("filename")}><span className='icon'><BiSave/></span></div>
                   <div className='btn'><span className='icon'><AiOutlineFolderOpen/></span></div>
                   <div className='btn' onClick={()=>this.addTab(`file${++this.count}`,'')}><span className='icon'><VscNewFile/></span></div>
                   <div className='btn'><span className='icon'><GoSync/></span></div>
@@ -127,7 +128,7 @@ class Analysis extends React.Component {
                   {
                     mode: "horizontal",         
                     children:[  
-                      {tabs:[{id:"directort",title:"Directory Tree",content:(<p> Label 1</p>)} ],size:40},
+                      {tabs:[{id:"directort",title:"Directory",content:(<p> Label 1</p>)} ],size:40},
                       this.editor_panel,
                       {mode: "vertical",children:[this.shortcuts,this.Tools,],size:45,},
                     ]
@@ -149,7 +150,9 @@ class Analysis extends React.Component {
     this.dockLayout = r;
   };
 
-
+  save(){
+    
+  }
   add_output(out){
     let state = this.state
     if(out.result.output){
@@ -162,6 +165,24 @@ class Analysis extends React.Component {
     }
 
   }
+  onLayoutChange = (newLayout, currentTabId, direction) => {
+    switch(direction){
+      case 'remove':
+        delete this.editors[currentTabId];
+        break;
+      case 'active':
+        this.editorRef.current = this.editors[currentTabId]
+        break;
+      case 'middle':case 'float':
+        this.tabRef.current=this.dockLayout.find(currentTabId)
+        // if(this.tabRef.current)
+        // this.tabRef.current.title="dnn";
+        
+      // default:
+        // console.log(direction)
+      
+    }
+  }
 
   handleEditorDidMount(editor, monaco) {    
     monaco.editor.setTheme(`vs-${document.getElementById("OuterMostBody").className}`);
@@ -169,15 +190,14 @@ class Analysis extends React.Component {
     this.monacoRef.current=monaco;
     
     this.editors[`${this.tempPath}`]=editor
-    console.log(this.editors)
   }
 
   execute(){
     if(this.editorRef.current){
       const code = this.editorRef.current.getValue()
-      const url="https://eigen-flow.onrender.com/api/execute_raw/"
+      const url="http://127.0.0.1:8000/code/exe_raw/"
       axios.post(url, {   
-        raw_code:code,
+        code:code,
       })
       .then((res)=>this.add_output(res.data))
       .catch(function (error) {
@@ -190,7 +210,6 @@ class Analysis extends React.Component {
 
   debug() {
     let tab = this.dockLayout.find('editor_panel').tabs[0]
-    console.log(tab)
   }
 
 
@@ -201,19 +220,15 @@ class Analysis extends React.Component {
   };
   newEditorTab(path, code) { /*method*/ 
     return { id:path ,closable:true,
-      title:(<><div className='editor-tab-title' onClick={()=>{this.editorRef.current=this.editors[path]}}>
-        {path}</div>
-
-       
-      </>),
+      // title:(<><div className='editor-tab-title' onClick={()=>{this.editorRef.current=this.editors[path]}}>
+      //   {path}</div></>),
+      title:path,
       content: (
 
       <Editor  height="100vh" width="100%" theme="myTheme" defaultLanguage='python' style={{top:"20px"}} 
-      // onChange={(a,b)=>console.log(a,b)}
       path={path}
       onMount={(editor, monaco)=>this.handleEditorDidMount(editor, monaco)}/> 
-      // )}    
-      // </Context.Consumer>
+     
       ),};
   }
 
@@ -245,7 +260,8 @@ class Analysis extends React.Component {
     return (
       <Context.Provider value={{console_output:this.state.console.output,console_error:this.state.console.error,value:"This is great\n\niam also"}}>
 
-        <DockLayout ref={this.getRef} defaultLayout={this.layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"/>
+        <DockLayout ref={this.getRef} defaultLayout={this.layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"
+        onLayoutChange={this.onLayoutChange}/>
       </Context.Provider>
     );
   }

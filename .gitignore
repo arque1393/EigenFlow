@@ -10,7 +10,8 @@
 
 # production
 /build
-
+.jupyter/
+JupyterBackend/
 # misc
 .DS_Store
 .env.local
