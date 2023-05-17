@@ -155,7 +155,7 @@ b{color: var(--color-dark-variant)}
     cursor: pointer; color: var(--color-dark);height: 1.9rem;
     font-size: 1.4rem; transition: all .3s ease ;
 }
-.aside .sidebar { background:var(--color-white); display: flex;width: max-content;transition: all .3s ease ;
+.aside .sidebar { background:var(--color-white); display: block;width: max-content;transition: all .3s ease ;
     flex-direction: column;  height: inherit; position: relative; overflow: scroll;
 }
 .aside .sidebar::-webkit-scrollbar { width: 0 !important }
@@ -186,15 +186,15 @@ b{color: var(--color-dark-variant)}
 
 /* #check1{display:none;} */
 
-.shrink {max-width:40px;min-width:40px;}
+ .shrink {max-width:40px;min-width:40px;}
 
 .shrink .sidebar a {margin-left:.51rem;gap:.8rem}
 
 .shrink .sidebar a.active {gap:.5rem}
 .shrink .sidebar a.active:before {width:2px;gap:.22rem}
-.shrink .hamburger-right{margin-left:.6rem;}
+.shrink .hamburger-right{margin-left:.6rem;} 
 .Main { 
-    width:100%;position:relative;padding:0;
+    width:100%;position:relative;padding:0;height: 100%;
     display:block;margin:0;z-index: 0; height:auto;/*calc(100vh - 4.44rem)*/;min-width:auto;color:var(--color-dark);
 background-color:none ;}
 
@@ -228,13 +228,13 @@ background-color:none ;}
 }
 .inner_main_content{
     /* background-color: #41f1b6; */
-    position:relativ;
+    position:relative;
     display:grid;
     grid-template-columns:2fr 1fr;
     gap:0rem;
      padding: 1rem;
       height:88vh;
-      overflow: scroll;
+      
 } 
 /* style={{position:"relative",display:"grid",gridTemplateColumns:"2fr 1fr",gap:"2.5rem", padding:"0 1rem", height:"88vh"}} */
 
@@ -256,7 +256,7 @@ background-color:none ;}
     .top .right-bar .menu {width: 22rem;}
     .top .right-bar .menu .menu-btn{padding:0rem  .2rem;}
 }
-@media (max-width: 690px) {
+@media (max-width: 700px) {
     .inner_main_content{display:block; overflow:scroll}
     .top{padding:2px 50px;justify-content:space-between; overflow:visible;}
     .top .hamburger{display:block;}
@@ -278,7 +278,20 @@ background-color:none ;}
     .sub-drop   {position:relative;left:10%;top:0;}
     /**** Right Bar CSS Code END *****/
     .top  .right-bar .menu .dropdown{position:relative;top:0;right:0;}
-    
+    /** Side left bar transformation **/
+    .Main{height: 90vh;padding: 0;margin: 0;}
+    .container{display: block;margin:0;height: 95vh;}
+    .aside{min-width:100%;height: 35px; padding:0;margin: 0 ;}
+    .aside .hamburger-right{display: none;}
+    .aside .sidebar {width: 100%;display: flex; background:var(--color-white);padding:0px;margin: 0;transition: all .3s ease ;
+        flex-direction: row;top:-6px; height: 35px; position: relative; overflow-x: scroll;overflow-y:visible;
+    }
+    .aside  ::-webkit-scrollbar{width: 0;}
+    .aside .sidebar a{min-width: 38px;overflow: hidden; padding: 0; margin: 0;justify-content: center;}
+    /* .aside .sidebar a span{font-size: medium;} */
+    .aside .sidebar a.active{padding: 0; margin: 0;}
+    .aside .sidebar a.active::before{content: none;}
+    .aside .sidebar a h6{display: none;}
 }
 @media (max-width: 300px) {.top .right-bar{ width: 100%;}}
 
