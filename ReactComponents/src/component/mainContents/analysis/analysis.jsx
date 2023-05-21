@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Editor,{useMonaco} from '@monaco-editor/react'
 import Terminal from './terminal';
+import DirectoryTree from './directory';
 import {DockLayout} from 'rc-dock';
 import axios from 'axios';
 import DataFlowGraph from './DataFlowGraph/graphModel';
@@ -128,7 +129,7 @@ class Analysis extends React.Component {
                   {
                     mode: "horizontal",         
                     children:[  
-                      {tabs:[{id:"directort",title:"Directory",content:(<p> Label 1</p>)} ],size:40},
+                      {tabs:[{id:"directoryTree",title:"Directory",content:(<DirectoryTree/>)} ],size:40},
                       this.editor_panel,
                       {mode: "vertical",children:[this.shortcuts,this.Tools,],size:45,},
                     ]

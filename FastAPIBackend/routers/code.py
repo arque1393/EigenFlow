@@ -3,6 +3,9 @@ from fastapi import UploadFile,APIRouter,Request
 import subprocess as sp
 from pydantic import BaseModel
 
+
+from .drive import connectGDrive
+
 from .config import BASE_DIR,fire_store,fire_auth,fire_db as db
 router = APIRouter()
 
@@ -12,7 +15,7 @@ router = APIRouter()
 class RawCode(BaseModel):
     code:str
 
-@router.post('/code/exe_raw')
+@router.post('/api/code/exe_raw')
 def exe_raw(req:RawCode):
     code = req.code
     try:
@@ -58,3 +61,8 @@ async def store(req:Request):
     data={'name':"Aritra",'age':21}
     db.push(data=data,token=token)
     return {'data':req.headers}
+
+
+@router.get('/api/drive')
+def connect():
+    connectGDrive()

@@ -6,15 +6,10 @@
 .shortcuts-ctrl{
     position:relative;display:grid;gap:.4rem;grid-column-gap: .1em;                              
     grid-template-columns:repeat(auto-fit, minmax(2.5rem, 0fr));
-    justify-content: center;
-   
-    /* max-width: 350px; */
-
-  }
-  /* .shortcuts-ctrl .btn{
-  Implemented in app.css
-  } */
-
+    justify-content: center;}
+.directoryTree{
+    overflow: scroll;
+}
   .shortcuts-ctrl .btn:active{
      top:2px;
      left:2px;
