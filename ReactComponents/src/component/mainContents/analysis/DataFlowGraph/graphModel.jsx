@@ -4,7 +4,7 @@ import ReactFlow, {
   addEdge,  useNodesState,  useEdgesState,  useReactFlow,
   Controls,  Background,} from 'reactflow';
 // import styled, { ThemeProvider } from 'styled-components';
-import {SpecialNode} from './customNode'
+import {SpecialNode, DataReader, TrainTestSplit} from './customNode'
 import 'reactflow/dist/style.css';
 import './graphModel.css'
 import './graphModel.css';
@@ -20,13 +20,12 @@ let nodeId = 0;
 function Flow() {
 
   const graphCanvas = useReactFlow();
-  // collecting reactflow instance 
-  const onClick = useCallback(() => { const id = `${++nodeId}`;
+  const addNode =(type) => { const id = `${++nodeId}`;
     const newNode = { id, data: {label: `Node ${id}`,},position: {x: Math.random() * 500, y: Math.random() * 500,},
-      type:'special'
+      type:type
     };
     graphCanvas.addNodes(newNode);
-  }, []);
+  };
 /// Node tracking using reference useRef
 let node = useRef(null)
 // Right click context menu for adding nodes 
@@ -47,16 +46,16 @@ let node = useRef(null)
   return (
     <>
         <div style={menuPosition} onMouseLeave={escapeEvents} className={`newNodePopup${nodeMenu}`}>
-          <div onClick={onClick}> Add New 0</div>
-          <div> Add New 1</div>
-          <div> Add New 2</div>
-          <div> Add New 3</div>
+          <div onClick={()=>addNode('special')}> Add New 0</div>
+          <div> Data Frame</div>
+          <div onClick={()=>addNode('dataReader')}> Data Reader</div>
+          <div onClick={()=>addNode('trainTestSplit')}> Train Test Splits</div>
         </div>
       <ReactFlow className='graph_container'
         defaultNodes={defaultNodes}
         defaultEdges={defaultEdges}
         defaultEdgeOptions={edgeOptions}
-        nodeTypes={{special:SpecialNode}}
+        nodeTypes={{special:SpecialNode,dataReader:DataReader,trainTestSplit:TrainTestSplit}}
         fitView
         style={{}}
         connectionLineStyle={connectionLineStyle}

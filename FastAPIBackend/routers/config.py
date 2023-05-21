@@ -1,5 +1,7 @@
 # Path Config
 from pathlib import Path
+import json 
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 TEMPLATE_DIR = BASE_DIR/'ReactBuild'
@@ -16,7 +18,7 @@ firebaseConfig = {
     'messagingSenderId': "116513511154",
     'appId': "1:116513511154:web:b238c221566082353aa26b",
     'measurementId': "G-YES9CXCS7E",
-    "databaseURL": "https://databaseName.firebaseio.com",
+    "databaseURL": "https://eigenflow1x-default-rtdb.asia-southeast1.firebasedatabase.app",
 }
 # Frebase app instance 
 app = pyrebase.initialize_app(firebaseConfig)
@@ -29,7 +31,9 @@ fire_store = app.storage()
 origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
-    "http://localhost",
-    "http://localhost:8080",
-    "http://127.0.0.1:3000"
+    "http://localhost:3080",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:8000"
 ]
+
+

@@ -1,0 +1,39 @@
+.login-back{
+    /* background-color: rgb(40, 20, 60, .9); */
+    /* box-shadow: var(--box-shadow); */
+    background-image: linear-gradient(to right, rgba(0,0,0,1),rgba(25,0,50,.851), rgba(50,0,70,0.6));
+    border-radius: 10px;
+    padding: 10px;
+    height:80vh;
+    width:60vw;
+}
+.form-outer{
+    width: 40vw;
+    overflow: hidden;
+}
+.form-inner{
+    display: flex;gap :10vw;padding:20px;position: relative;
+    transition: all .3s ease;left:18%;
+  /* left:-350px; */
+}
+.slide1{
+    left : -30vw;
+}
+.field{height:45px;}
+.field input{height:33px;border-radius: 20px; padding: 0 20px; background-color: rgba(100,70,100,0.5);color:white; border:none; outline:none;font-size: 16px;min-width: 25vw;}
+.login-back .title {font-size: 30px;height: 60px;}
+.login-back .pass-link{
+    /* justify-content: center; */
+    align-items: right;
+    
+}
+
+.btnx{
+    background:linear-gradient(to bottom, rgb(46, 19, 67),rgb(51, 0, 99)); 
+    max-width: 90px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 10px;
+    z-index: 100;
+}
+

@@ -3,10 +3,9 @@ import light_logo from './logo/logo.png';
 import logo from './logo/llogo.png'; 
 import { GoThreeBars } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
-import { useMonaco } from "@monaco-editor/react";
 import axios from "axios";
 
-import './loginPage.css';
+import './login.css';
 
 
 function TopBar(props){
@@ -30,7 +29,7 @@ function TopBar(props){
     let [slided,set_slided] =useState(false);
     let [login_on,set_login_on] =useState(false);
     let [slide,set_slide] = useState("");
-
+    let [authError, setAuthError] = useState("")
 
 
     function loginSubmit(event){
@@ -39,27 +38,27 @@ function TopBar(props){
              email:event.target[0].value,
             password:event.target[1].value
         }
-        const url =  "http://127.0.0.1:8000/api/signin/";
+        const url =  "http://127.0.0.1:8000/api/auth/signin/";
         axios.post(url, data)
           .then(function (res) {     
             set_auth(res.data);
             // props.setAuth(res.data);
           })
           .catch(function (error) {
-            console.log(error);
+            setAuthError(error);
           });
           set_login_on(false)
     }
     function signupSubmit(event){
         event.preventDefault()
-        const url =  "http://127.0.0.1:8000/api/signup/";
+        const url =  "http://127.0.0.1:8000/api/auth/signup/";
         const username   =event.target[0].value
         const email  =event.target[1].value
         const password1  = event.target[2].value
         const password2  = event.target[3].value
         if(password1!==password2)
         {
-            console.log("Password Missmatch");
+            setAuthError("Password Missmatch")
             return
         }
         axios.post(url, {   
@@ -71,7 +70,7 @@ function TopBar(props){
             console.log(res.data);
           })
           .catch(function (error) {
-            console.log(error);
+            setAuthError(error);
           });
 
           set_login_on(false)
@@ -91,38 +90,34 @@ function TopBar(props){
     if(e.target.className==="login_back_container login_show")
         set_login_on(false)}}> 
         <div className="login-back">
-           
-            <div className={`title-text${slide}`}>
-                <div className="title login" >Login Form</div>
-                <div className="title signup" >Signup Form</div>
-            </div>
-       
-            <div className="slide-controls">             
-                <div  className={`btn${slide===""?" active":""}`} onClick={()=>set_slide("")}>Login</div>
-                <div className={`btn${slide===""?"":" active"}`} onClick={()=>set_slide(" active")}>Signup</div>
-                <div className={`slider-tab${slide}`}></div>
-            </div>
+            <div className="form-outer">
             <div className={`form-inner${slide}`}>
                 <form onSubmit={loginSubmit} className="login">
+                <div className="title"> Sign In </div>
                 <div className="field">
-                    <input name="email" type="text" placeholder="Email ID" required/>
+                    <input name="email" type="email" placeholder="Email ID" required/>
                 </div>
                 <div className="field">
                     <input name="password" type="password" placeholder="Password" required/>
                 </div>
                 <div className="pass-link"><a href="#">Forgot password?</a></div>
-                <div className="field btn">
+                <div className="error">
+                    {authError}
+                </div>
+                <div className="field">
                     <div className="btn-layer"></div>
                     <input type="submit" value="Login"/>
                 </div>
-                <div className="signup-link">Not a member? <a href="">Signup now</a></div>
+                <div className="signup-link">Not a member?</div>
+                <div onClick = {()=>set_slide(" slide1")}className="btnx">Signup -> </div>
                 </form>
                 <form onSubmit={signupSubmit} className="signup">
+                <div className="title"> Sign Up </div>
                 <div className="field">
                     <input type="text" placeholder="Username" required/>
                 </div>
                 <div className="field">
-                    <input type="text" placeholder="Email Address" required/>
+                    <input type="email" placeholder="Email Address" required/>
                 </div>
                 <div className="field">
                     <input type="password" placeholder="Password" required/>
@@ -130,14 +125,19 @@ function TopBar(props){
                 <div className="field">
                     <input type="password" placeholder="Confirm password" required/>
                 </div>
-                <div className="field btn">
+                <div className="error">
+                    {authError}
+                </div>
+                <div className="field">
                     <div className="btn-layer"></div>
                     <input type="submit" value="Signup"/>
                 </div>
+                <div onClick={()=>set_slide("")} className="btnx">  {'<-'} Signin</div>
+
                 </form>
             </div>
-            
             </div>
+        </div>
         </div>
     <div className="logo">
         <img src={props.theme==="dark"?logo:light_logo}/>

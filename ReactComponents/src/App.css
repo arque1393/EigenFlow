@@ -60,7 +60,7 @@
 body{   font-family: 'Suwannaphum', serif;
     font-size: .9rem; overflow: hidden; 
     background: var(--color-background); background-color: var(--color-background);}
-.login_back_container{z-index:151;position:absolute;display:none;height: 100%;width: 100%;place-items: center;background-color: rgba(0,0,0,0.41);top:0;}
+.login_back_container{z-index:151;position:absolute;display:none;height: 100%;width: 100%;place-items: center;background-color: rgba(30,30,30,0.71);top:0;left:0;}
 
 .login_show{display: grid;}
 .container { 

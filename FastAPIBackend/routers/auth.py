@@ -5,9 +5,11 @@ import json
 router = APIRouter()
 class LoginUser(BaseModel):
     email:str;passwd:str;    
+class SignupUser(BaseModel):
+    username:str;email:str;password:str;    
     
-@router.post('/auth/signup',)
-def signup(req: LoginUser):    
+@router.post('/api/auth/signup',)
+def signup(req: SignupUser):    
     try : 
         user = fire_auth.create_user_with_email_and_password(req.email,req.passwd) 
         print(user)
@@ -17,7 +19,7 @@ def signup(req: LoginUser):
         res = {"success":False,'error':m}       
         print(type(e.strerror))
     return res    
-@router.post('/auth/login',)
+@router.post('/api/auth/login',)
 def login(req:LoginUser):
     # print(req)
     res={}   

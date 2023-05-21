@@ -4,7 +4,26 @@
 .newNodePopup div:hover{background-color:var(--menu-hover-background);}
 .newNodeActive{display: inline-block;}
 
-
-.specialNode{
-    background-color: #111111;padding: 7px;border:solid 2px #999999;border-radius: 10px;
+.classNode{
+    background:linear-gradient(to bottom,  #265817,#31ab31,  #207c25);padding:10px 15px;
 }
+.instanceNode{
+background:linear-gradient(to bottom,  #71170f,#963d3d,  #780303);padding:10px 15px;
+    
+}
+.functionNode{
+background:linear-gradient(to bottom,  #34226c,#28288c,  #2033cc);padding:10px 15px;
+
+}
+/* .graph_container{background-color: #1b112c;} */
+.specialNode{
+
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+      
+    /* box-shadow:3px 4px 0 rgb(35,20, 122); */
+
+}
+/* .specialNode:hover{   box-shadow:.25rem .25rem .21rem rgb(68, 40, 129); ;}*/
+.NodePointer{height:7px;width: 7px;border-radius: 10px;}
