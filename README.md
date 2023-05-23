@@ -9,7 +9,8 @@ Not only a simple IDE along with a group or team or project management system in
 ### Tech Stack
 ##### Development Tools
 > 1. **React Js**
-> 2. **Django Rest Framework**
+> 2. **Django Rest Framework**( Old Approach)
+> 3. **FastAPI**
 ##### Data Analysis Tools 
 > 1. Numpy 
 > 2. pandas
