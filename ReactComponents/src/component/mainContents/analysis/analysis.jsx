@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Editor,{useMonaco} from '@monaco-editor/react'
-import Terminal from './terminal';
-import DirectoryTree from './directory';
+import Terminal from './terminal/terminal';
+import DirectoryTree from './directory_tree/directory';
 import {DockLayout} from 'rc-dock';
 import axios from 'axios';
 import DataFlowGraph from './DataFlowGraph/graphModel';

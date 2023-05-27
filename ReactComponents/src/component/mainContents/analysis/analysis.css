@@ -1,10 +1,10 @@
 #shortcuts{
-    overflow-y: scroll;padding: 1rem;
+    overflow-y: scroll;padding-left: .4rem;padding-right:0.15rem;
 }
 #shortcuts::-webkit-scrollbar { width: 0px !important }
 #shortcuts h6{margin-top:5px}
 .shortcuts-ctrl{
-    position:relative;display:grid;gap:.4rem;grid-column-gap: .1em;                              
+    position:relative;display:grid;gap:.4rem;grid-column-gap: .05rem;                              
     grid-template-columns:repeat(auto-fit, minmax(2.5rem, 0fr));
     justify-content: center;}
 .directoryTree{

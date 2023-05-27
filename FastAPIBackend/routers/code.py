@@ -65,4 +65,5 @@ async def store(req:Request):
 
 @router.get('/api/drive')
 def connect():
-    connectGDrive()
+    # connectGDrive()
+    pass

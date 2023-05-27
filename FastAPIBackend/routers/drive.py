@@ -36,7 +36,7 @@ def connectGDrive():
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
-
+    print(creds)
     try:
         service = build('drive', 'v3', credentials=creds)
 
@@ -56,3 +56,4 @@ def connectGDrive():
         print(f'An error occurred: {error}')
 
 
+connectGDrive()
