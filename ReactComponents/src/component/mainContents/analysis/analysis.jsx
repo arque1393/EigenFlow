@@ -33,7 +33,6 @@ class Analysis extends React.Component {
         this.editors={}
         this.tabs={}
         this.count = 0;  // General Variable  
-        this.solution = {title:'Solution Explorer', content: (<div><h1>Tab1 Tab</h1></div>),closable:true,};// Solution Component
         
         this.editor_panel={
           id:"editor_panel",
@@ -131,16 +130,13 @@ class Analysis extends React.Component {
                     children:[  
                       {tabs:[{id:"directoryTree",title:"Directory",content:(<DirectoryTree/>)} ],size:40},
                       this.editor_panel,
-                      {mode: "vertical",children:[this.shortcuts,this.Tools,],size:45,},
                     ]
                   },
                   this.console,
                 ],
               },
-              {
-                mode:'vertical',size:35,
-                tabs:[{...this.solution, id:"solution"}],
-              },
+              {mode: "vertical",children:[this.shortcuts,this.Tools,],size:35,},
+              
             ]
           }
         }

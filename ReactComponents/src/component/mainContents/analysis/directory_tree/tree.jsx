@@ -4,7 +4,8 @@
 
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import "./index.css";
+import {AiFillCaretRight,AiFillCaretDown} from "react-icons/ai"
+import "./tree.css";
 
 const Tree = ({ data = [] }) => {
   return (
@@ -25,18 +26,16 @@ const TreeNode = ({ node }) => {
 
   return (
     <li className="d-tree-node border-0">
-      <div className="d-flex" onClick={(e) => setChildVisiblity((v) => !v)}>
+      <div className="d-flex" onClick={(e) => setChildVisiblity(!childVisible)}>
         {hasChild && (
-          <div
-            className={`d-inline d-tree-toggler ${
-              childVisible ? "active" : ""
-            }`}
-          >
-            {/* <FontAwesomeIcon icon="caret-right" /> */}
-          </div>
+          <span className={`d-tree-toggler ${childVisible?"active":"active"}`}>
+           {
+            childVisible?<AiFillCaretDown/>:<AiFillCaretRight/>
+           } 
+          </span>
         )}
 
-        <div className="col d-tree-head">
+        <div className="d-tree-head">
           <i className={`mr-1 ${node.icon}`}> </i>
           {node.label}
         </div>

@@ -4,7 +4,6 @@ import  Analysis  from "./mainContents/analysis/analysis"
 import  HelpPage  from "./mainContents/help"
 import  Home     from "./mainContents/home"
 import  Schedule  from "./mainContents/schedule"
-import  DataGallery    from "./mainContents/gallery"
 import  History   from "./mainContents/history"
 import  NoteBook  from "./mainContents/notebook"
 import  Teams from "./mainContents/teams"
@@ -18,7 +17,6 @@ function MainContent(props){
          <Routes>
             <Route path="base/"  element={<Home/>} /> 
             <Route path="base/analytics"  element={<TerminalContextProvider><Analysis/></TerminalContextProvider>}/>
-            <Route path="base/gallery"  element={<DataGallery/>} />
             <Route path="base/teams"  element={<Teams/>} />
             <Route path="base/scheduler"  element={<Schedule/>} />
             <Route path="base/notebook"  element={<NoteBook/>} />
