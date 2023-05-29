@@ -192,7 +192,8 @@ class Analysis extends React.Component {
   execute(){
     if(this.editorRef.current){
       const code = this.editorRef.current.getValue()
-      const url="http://127.0.0.1:8000/code/exe_raw/"
+      const url="https://eigen-flow.onrender.com/api/code/exe_raw"
+
       axios.post(url, {   
         code:code,
       })
