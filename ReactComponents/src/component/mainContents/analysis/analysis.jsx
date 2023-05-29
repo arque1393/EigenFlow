@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Editor,{useMonaco} from '@monaco-editor/react'
-import Terminal from './terminal/terminal';
+import Editor from '@monaco-editor/react'
+import IPythonShell from './terminal/ipythonShell';
 import DirectoryTree from './directory_tree/directory';
 import {DockLayout} from 'rc-dock';
 import axios from 'axios';
@@ -11,16 +11,16 @@ import {TiFlowSwitch} from 'react-icons/ti'
 import {BiSave,BiTable} from "react-icons/bi"
 import {AiOutlineFolderOpen,AiOutlineDotChart,AiOutlineLineChart,
   AiOutlineBarChart,AiOutlineAreaChart,AiOutlinePieChart} from "react-icons/ai";
-import {GrGraphQl,GrClose} from "react-icons/gr";
+import {GrGraphQl} from "react-icons/gr";
 import {GoSync} from "react-icons/go";
 import {FiUpload} from "react-icons/fi";
 import {BsFillPlayFill} from "react-icons/bs";
 import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart} from "react-icons/vsc";
 const Context = React.createContext();
 
-function getTheme(){
-  return document.getElementById("OuterMostBody").className
-}
+// function getTheme(){
+//   return document.getElementById("OuterMostBody").className
+// }
 
 class Analysis extends React.Component {
   constructor() {
@@ -29,6 +29,7 @@ class Analysis extends React.Component {
         this.tempPath="";
         this.editorRef = React.createRef(null);
         this.monacoRef = React.createRef(null);
+        this.windowWidth = React.createRef(window.innerWidth);
         this.tabRef= React.createRef(null)
         this.editors={}
         this.tabs={}
@@ -42,6 +43,7 @@ class Analysis extends React.Component {
           }
 
         }  
+        this.layout={}
         this.shortcuts={tabs:[{ id:"shortcuts",title:'Shortcuts', 
               content: (<>
                 <h6>General</h6>
@@ -106,8 +108,8 @@ class Analysis extends React.Component {
             },
               
             {id:"terminal",
-            title:'Terminal', 
-            content: (<Terminal/>)
+            title:'IPython', 
+            content: (<IPythonShell/>)
             }  
               
               ],size:60
@@ -118,7 +120,7 @@ class Analysis extends React.Component {
         this.Tools={tabs:[{ id:"Tools",title:'Tools', 
               content: (<div><h3>Tools</h3><p>Make it easy</p></div>),  
               closable:true,}]}
-      this.layout={
+      this.desktopLayout={
           dockbox : {
             mode :"horizontal",
             children:[    
@@ -136,11 +138,37 @@ class Analysis extends React.Component {
                 ],
               },
               {mode: "vertical",children:[this.shortcuts,this.Tools,],size:35,},
-              
             ]
           }
         }
-      
+      this.mobileLayout = {
+        dockbox : {
+          mode :"vertical",
+          children:[    
+            {
+              mode: "horizontal",          
+              children:[
+                this.editor_panel,
+                {
+                  ...this.shortcuts,   
+                  size:20  
+                }
+              ],
+              size:450
+            },
+            {
+              mode: "horizontal",children:[
+              {tabs:[{id:"directoryTree",title:"Directory",content:(<DirectoryTree/>)} ],size:'50%'},
+              this.Tools,]
+              ,size:'20%',
+            },     
+            {
+              ...this.console,size:'20%'
+            }
+              
+          ]
+        }
+      }
       }
 
   getRef = (r) => {
@@ -171,12 +199,11 @@ class Analysis extends React.Component {
         this.editorRef.current = this.editors[currentTabId]
         break;
       case 'middle':case 'float':
-        this.tabRef.current=this.dockLayout.find(currentTabId)
+        this.tabRef.current=this.dockLayout.find(currentTabId);break;
         // if(this.tabRef.current)
         // this.tabRef.current.title="dnn";
-        
-      // default:
-        // console.log(direction)
+      default:
+        console.log(direction)
       
     }
   }
@@ -206,9 +233,9 @@ class Analysis extends React.Component {
   }
 
 
-  debug() {
-    let tab = this.dockLayout.find('editor_panel').tabs[0]
-  }
+  // debug() {
+  //   let tab = this.dockLayout.find('editor_panel').tabs[0]
+  // }
 
 
 
@@ -237,11 +264,7 @@ class Analysis extends React.Component {
   newDataFlowGraphEditorTab(path,default_graph = null){
     return {
       id:path,closable:true,title:`G:${path}`,
-      content:(
-
-        <DataFlowGraph/>
-      
-    )
+      content:(<DataFlowGraph/>)
     }
   }
   componentWillUnmount()
@@ -249,20 +272,29 @@ class Analysis extends React.Component {
 
  
   }
-  componentDidMount()
+  componentWillMount()
   {
-    document.querySelector(".dock-tab-close-btn").addEventListener("fdg",(e)=>console.log(e))
+    // document.querySelector(".dock-tab-close-btn").addEventListener("fdg",(e)=>console.log(e))
+    if(window.innerWidth>700)
+      this.layout = this.desktopLayout
+    else 
+      this.layout = this.mobileLayout
+
+    
+    console.log(window.innerWidth)
   }
   render() {  
-    
+  // const w = window.innerWidth
+  // if ( w> 700)
+    // console.log(window.innerWidth,90)
     return (
       <Context.Provider value={{console_output:this.state.console.output,console_error:this.state.console.error,value:"This is great\n\niam also"}}>
-
         <DockLayout ref={this.getRef} defaultLayout={this.layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"
         onLayoutChange={this.onLayoutChange}/>
       </Context.Provider>
     );
+  // else 
+  //     return(<div>This is Great</div>);
   }
 }
-
 export default Analysis;
