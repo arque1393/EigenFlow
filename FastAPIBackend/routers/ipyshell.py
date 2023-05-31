@@ -35,27 +35,28 @@ class IPySession(object):
         # print(f"Deleated {uid}")
     def restart(self):
         self.timer.cancel()
+        self.timer =  Timer(SESSION_TIME,self.destroy)
         self.timer.start()
     @classmethod
     def create(self, user_info) -> None:
         # check_user(user_info)
-        uid = user_info['uid']
+        uid = user_info.uid
         ses = self(uid)
-        shell_id = ses.add()
+        ses.add(user_info.shell_id)
         self.session[uid] = ses        
-        return ses,shell_id
+        return ses
     @classmethod
     def get(self, cred) :
         # check_user(cred)
-        try:return self.session[cred['uid']]
+        try:return self.session[cred.uid]
         except: return None
     @staticmethod
     def getAll(self):
         return list(self.session.keys())
-    def add(self):
-        shell_id=str(uuid.uuid1())
+    def add(self,shell_id):
+        # shell_id=str(uuid.uuid1())
         self.shells[shell_id]=self.Shell(shell_id)
-        return self.shells[shell_id].id
+        # return self.shells[shell_id].id
     def remove(self, shell_id):
         del  self.shells[shell_id]
     def exec(self, codeLine, shell_id):

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import Editor from '@monaco-editor/react'
 import IPythonShell from './terminal/ipythonShell';
 import DirectoryTree from './directory_tree/directory';
@@ -30,6 +31,7 @@ class Analysis extends React.Component {
         this.editors={}
         this.tabs={}
         this.count = 0;  // General Variable  
+        this.shell_id_count=0
         this.editor_panel={id:"editor_panel",tabs: [],panelLock: {minWidth: 200,}}  
         this.layout={}
         this.shortcuts={tabs:[{ id:"shortcuts",title:'Shortcuts', 
@@ -91,11 +93,11 @@ class Analysis extends React.Component {
                   )}
               </Context.Consumer>),closable:true,
             },
-            { id:"ipythonShell",
-              title:'IPython', 
-              content: (<IPythonShell/>),
-              closable:true
-            }
+            // { id:"ipythonShell",
+            //   title:'IPython', 
+            //   content: (<IPythonShell/>),
+            //   closable:true
+            // }
               ],size:60, panelLock: true
         }
         this.Tools={tabs:[{ id:"Tools",title:'Tools', 
@@ -119,7 +121,8 @@ class Analysis extends React.Component {
               {mode: "vertical",children:[this.shortcuts,this.Tools,],size:35,},
             ],
 
-          }
+          },
+   
       }
       this.mobileLayout = {
         dockbox : {
@@ -192,19 +195,8 @@ class Analysis extends React.Component {
     this.dockLayout.dockMove(this.newEditorTab(path,code), 'editor_panel', 'middle');
   };
   addShell = () => {
-      // const url="https://eigen-flow.onrender.com/api/code/exe_raw"
-    const url="http://127.0.0.1:8000/api/code/add_ipy"      
-    let shell_id=''
-    axios.post(url, {uid:"1234567"})
-    .then((res)=>{
-      shell_id=res.data.shell_id
-      this.dockLayout.dockMove(this.newShellTab(shell_id), 'editor_panel', 'middle');
-
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
+    const shell_id = this.shell_id_count++
+    this.dockLayout.dockMove(this.newShellTab(`${shell_id}`), 'editor_panel', 'middle');
   };
   newEditorTab(path, code) { /*method*/ 
     return { id:path ,closable:true,title:path,
@@ -229,7 +221,6 @@ class Analysis extends React.Component {
   componentWillMount(){
     if(window.innerWidth>700) this.layout = this.desktopLayout
     else this.layout = this.mobileLayout
-    console.log(window.innerWidth)
   }
   render() {  
     return (

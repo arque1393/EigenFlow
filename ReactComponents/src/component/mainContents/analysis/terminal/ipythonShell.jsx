@@ -3,12 +3,14 @@ import axios from 'axios';
 import './ipythonShell.css'
 
 function IPythonShell(props){
+    const uid="Unknown" // Get From redux when i will use that
+    const shell_id = props.id
     let [input,setInput] = useState("")
     const inpRef = useRef();
     let [prevList, setPrevList] = useState([])
     // let [isDone,setIsDone] = useState(false)
     //   const url="https://eigen-flow.onrender.com/api/code/exe_raw"
-    const url='http://127.0.0.1:8000/api/code/exe_raw'
+    const url='http://127.0.0.1:8000/api/code/exe_ipy'
     return(
         <div className='TERMINALX' onClick={()=>inpRef.current.focus()}>
             <div className="output">
@@ -48,17 +50,23 @@ function IPythonShell(props){
                     }
                     else {
                         
-                        axios.post(url, {   
-                            code:input,
-                           })
+                        axios.post(url,{
+                            codelines:input,
+                            cred: {
+                              uid:uid,
+                              shell_id: shell_id
+                            }
+                          })
                           .then((res)=>{
-                            if(res.data.result.output)
-                                output1=res.data.result.output
+                            if(res.data.result.return)//{
+                                output1=res.data.result.return
+                                // outPrompt=false}
                             else 
-                                output1=res.data.result.error
+                                output1=res.data.result.output
                             newOutput.push(
                                 {in:input,
                                 out:output1}
+                                
                                 
                             )
                             setPrevList(newOutput);

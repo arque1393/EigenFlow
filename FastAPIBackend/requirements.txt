@@ -9,3 +9,6 @@ google-auth-httplib2
 google-auth-oauthlib
 ipython
 ipykernel
+numpy
+pandas 
+matplotlib
