@@ -2,20 +2,15 @@ from typing import Annotated
 from fastapi import UploadFile,APIRouter,Request
 import subprocess as sp
 from pydantic import BaseModel
-
+from .ipyshell import IPySession
 
 # from .drive import connectGDrive
 
 from .config import BASE_DIR,fire_store,fire_auth,fire_db as db
 router = APIRouter()
-
-
-
-
 class RawCode(BaseModel):
     code:str
-
-@router.post('/api/code/exe_raw')
+@router.post('/api/code/exe_raw', tags=['Interactive Execution'])
 def exe_raw(req:RawCode):
     code = req.code
     try:
@@ -29,7 +24,29 @@ def exe_raw(req:RawCode):
     except:
         return {'result':None, 'success':False,'error':"e"}
     
+class IPyCode(BaseModel):
+    codelines:str
+    cred:dict
 
+@router.post('/api/code/connect_ipy', tags=['Interactive Execution'])
+def exe_ipython(cred:dict ):
+    uid = cred['uid']
+    if uid in IPySession.session:
+        shells = IPySession.session[uid].getAll() 
+        return {"message":"connected","shells":shells}
+    ses,shell_id = IPySession.create(cred)
+    return {"shell_id":shell_id}
+
+@router.post('/api/code/exe_ipy', tags=['Interactive Execution'])
+def exe_ipython(code:IPyCode ):
+    ses = IPySession.get(code.cred)
+    if(not ses):
+        return {"success":False,'error':{"message":" invalid credential"}}
+    shell_id=code.cred['shell_id']
+    obj = ses.exec(code.codelines,shell_id)
+    ses.restart()
+    print(obj)
+    return obj
 
 
 

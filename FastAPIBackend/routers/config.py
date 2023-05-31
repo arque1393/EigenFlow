@@ -6,7 +6,7 @@ import json
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 TEMPLATE_DIR = BASE_DIR/'ReactBuild'
 STATIC_DIR = TEMPLATE_DIR/'static'
-
+SESSION_TIME = 600 # in second 
 # Fire Base Config 
 import pyrebase
 ### Firebase Web app Connection config
@@ -31,7 +31,7 @@ fire_store = app.storage()
 origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
-    "http://localhost:3080",
+    "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:8000",
     "https://eigen-flow.onrender.com"

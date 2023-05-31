@@ -118,7 +118,7 @@ b{color: var(--color-dark-variant)}
     background-color: var(--menu-hover-background);
     font-size: 1.04rem; font-weight: 650px;}
 .top  .right-bar .menu .dropdown{
-    position:absolute;top:1.8rem;min-width: 12rem;
+    position:absolute;top:1.8rem;min-width: 8rem;
     background-color: var(--dropdown-background);
     border-bottom-left-radius: 15px;/*border-bottom-right-radius: 5px;*/
     padding: .5rem; display: none;max-height: max-content;z-index: 150;
@@ -133,7 +133,7 @@ b{color: var(--color-dark-variant)}
  .sub-drop   {    
     display: none;top:-3vh; padding: .5rem;min-width: 10rem;position:absolute;
     border-bottom-left-radius: 15px;background-color: var(--dropdown-background);
-    left:100%; box-shadow: var(--menu-shadow); transition: .2s; font-size: 1rem;}
+    left:100%; box-shadow: var(--menu-shadow); transition: .2s; font-size: .85rem;}
 .sub-dropdown-container{position:relative;}
 .sub-dropdown-container:hover > .sub-drop {display: block;}
 .top .right-bar .UserBtn{  top:0; min-width:1.6rem;

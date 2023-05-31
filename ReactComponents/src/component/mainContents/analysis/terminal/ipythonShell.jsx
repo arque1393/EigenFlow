@@ -2,12 +2,13 @@ import { useRef, useState } from 'react';
 import axios from 'axios';
 import './ipythonShell.css'
 
-function Terminal(props){
+function IPythonShell(props){
     let [input,setInput] = useState("")
     const inpRef = useRef();
     let [prevList, setPrevList] = useState([])
     // let [isDone,setIsDone] = useState(false)
-      const url="https://eigen-flow.onrender.com/api/code/exe_raw"
+    //   const url="https://eigen-flow.onrender.com/api/code/exe_raw"
+    const url='http://127.0.0.1:8000/api/code/exe_raw'
     return(
         <div className='TERMINALX' onClick={()=>inpRef.current.focus()}>
             <div className="output">
@@ -79,4 +80,4 @@ function Terminal(props){
     )
 }
 
-export default Terminal;
+export default IPythonShell;

@@ -180,15 +180,23 @@ function TopBar(props){
             <div  className="menu-content"  onMouseLeave={()=>open_mb1(false)}>
                 <div id="mb1" className="menu-btn" onClick={()=>open_mb1(!mb1)}>View </div>
                 <div id="drop1" className={`dropdown ${mb1?"opened":""}`}>
+                    <div className="sub-dropdown-container"> 
+                        <a className="dropdown-item" href="#">Ipython Shells </a>
+                            <div className="sub-drop">
+                                <a className="dropdown-item">Configure</a>
+                                <a className="dropdown-item">Show Active Shell</a>
+                                <a className="dropdown-item" href="#">Add New Shell</a>
+                            </div>
+                    </div>
                     <a className="dropdown-item" href="#">Plot Tools </a>
                     <a className="dropdown-item" href="#">Directory </a>
-                    <a className="dropdown-item" href="#">Code Editor 
+                    <a className="dropdown-item" href="#">Code Editor</a>
                         {/* <div className="sub-drop">
                                 <a className="dropdown-item" href="#">Dark</a>
                                 <a className="dropdown-item" href="#">Light</a>
                                 <a className="dropdown-item" href="#">Add Modr   +</a>
                             </div> */}
-                    </a>
+                    
                     <a className="dropdown-item" href="#">Data Display</a>
                     <a className="dropdown-item" href="#">Shortcuts</a>
                 </div>

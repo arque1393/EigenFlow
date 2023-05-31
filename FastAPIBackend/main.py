@@ -19,12 +19,16 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 templates = Jinja2Templates(directory=TEMPLATE_DIR)
 
-@app.get("/base/{path}", response_class=HTMLResponse)
+@app.get('/')
+async def base(req:Request):
+    return RedirectResponse('/base/home')
+@app.get('/base')
+async def base(req:Request):
+    return RedirectResponse('/base/home')
+
+@app.get("/base/{path}", response_class=HTMLResponse, tags=['Base'])
 async def base(request: Request, args:Optional[str]=None):
     return templates.TemplateResponse("index.html",{"request": request,})
 app.include_router(auth.router)
 app.include_router(code.router)
 # print(fire_store.list_files())
-@app.get('/')
-async def base(req):
-    return RedirectResponse('/base/home')     

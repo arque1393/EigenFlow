@@ -12,16 +12,12 @@ import {BiSave,BiTable} from "react-icons/bi"
 import {AiOutlineFolderOpen,AiOutlineDotChart,AiOutlineLineChart,
   AiOutlineBarChart,AiOutlineAreaChart,AiOutlinePieChart} from "react-icons/ai";
 import {GrGraphQl} from "react-icons/gr";
-import {GoSync} from "react-icons/go";
+import {GoSync,GoTerminal} from "react-icons/go";
 import {FiUpload} from "react-icons/fi";
 import {BsFillPlayFill} from "react-icons/bs";
 import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart} from "react-icons/vsc";
+// import {RiTerminalBoxFill} from "react-icons/ri"
 const Context = React.createContext();
-
-// function getTheme(){
-//   return document.getElementById("OuterMostBody").className
-// }
-
 class Analysis extends React.Component {
   constructor() {
         super();
@@ -34,19 +30,11 @@ class Analysis extends React.Component {
         this.editors={}
         this.tabs={}
         this.count = 0;  // General Variable  
-        
-        this.editor_panel={
-          id:"editor_panel",
-          tabs: [],
-          panelLock: {
-            minWidth: 200,
-          }
-
-        }  
+        this.editor_panel={id:"editor_panel",tabs: [],panelLock: {minWidth: 200,}}  
         this.layout={}
         this.shortcuts={tabs:[{ id:"shortcuts",title:'Shortcuts', 
               content: (<>
-                <h6>General</h6>
+                <p style={{fontSize:13}}>General</p>
                   <div className='shortcuts-ctrl'>
                   <div className='btn' onClick={()=>this.save("filename")}><span className='icon'><BiSave/></span></div>
                   <div className='btn'><span className='icon'><AiOutlineFolderOpen/></span></div>
@@ -56,14 +44,17 @@ class Analysis extends React.Component {
                   <div className='btn'><span className='icon'><BiTable/></span></div>          
                   <div className='btn'><span className='icon'><FiUpload/></span></div>       
                 </div>
-                <h6>Code</h6>
+                <p style={{fontSize:13}}>Code</p>
                 <div className='shortcuts-ctrl'>
                   <div className='btn' onClick={()=>this.execute()}><span className='icon'><BsFillPlayFill/></span></div>
+                  <div className='btn' onClick={()=>this.addShell()}><span className='icon'><GoTerminal/></span></div>  
                   <div className='btn'><span className='icon'><VscDebugLineByLine/></span></div>
                   <div className='btn' onClick={()=>this.debug()}><span className='icon'><VscDebugAll/></span></div>
-                  <div className='btn'><span className='icon'><VscDebugRestart/></span></div>          
+                  <div className='btn'><span className='icon'><VscDebugRestart/></span></div>  
+                  
+
                 </div>
-                <h6> Diagrams </h6>
+                <p style={{fontSize:13}}> Diagrams </p>
                 <div className='shortcuts-ctrl'>
                 <div className='btn'><span className='icon'><AiOutlineDotChart/></span></div>
                 <div className='btn'><span className='icon'><AiOutlineLineChart/></span></div>
@@ -72,51 +63,41 @@ class Analysis extends React.Component {
                 <div className='btn'><span className='icon'><AiOutlinePieChart/></span></div>            
                 <div className='btn'><span className='icon'><GrGraphQl/></span></div>            
                 </div></>),  closable:true,}],}
-        this.console= { tabs:[{ 
+              
+        this.console= {
+            id:"console",
+            tabs:[{ 
               id:"console",title:'Console', 
               content: (
                 <Context.Consumer>
                   {(context) => (
-                      <div className='TERMINALX'>
-                          {context.console_output.map( 
-                            (item, i) => ( <div className='outline'>
-                                <div style={{marginRight:"5px"}}>Out[{i}]: </div> 
-                                <div style={{whiteSpace:'pre'}}>{item}</div>
-                            </div>))}
-                      </div> 
+                    <div className='TERMINALX'>
+                      {context.console_output.map((item, i) => ( <div className='outline'>
+                          <div style={{marginRight:"5px"}}>Out[{i}]: </div> 
+                          <div style={{whiteSpace:'pre'}}>{item}</div>
+                      </div>))}
+                    </div> 
                   )}
                 </Context.Consumer>                
               ), closable:true,},
-
             { id:"log",
               title:'Error Log', 
               content: (
                 <Context.Consumer>
                   {(context) => (
-                      <div>
-                          {context.console_error.map( 
-                            (item, i) => ( <>
-                                <div>Error[{i}]</div> 
-                                <div>{item}</div>
-                            </>))}
-                      </div> 
+                    <div>{context.console_error.map( 
+                      (item,i)=>(<><div>Error[{i}]</div>
+                      <div>{item}</div></>))}</div> 
                   )}
-              </Context.Consumer>  
-              
-              ),  
-                closable:true,
+              </Context.Consumer>),closable:true,
             },
-              
-            {id:"terminal",
-            title:'IPython', 
-            content: (<IPythonShell/>)
-            }  
-              
-              ],size:60
+            { id:"ipythonShell",
+              title:'IPython', 
+              content: (<IPythonShell/>),
+              closable:true
+            }
+              ],size:60, panelLock: true
         }
-
-
-
         this.Tools={tabs:[{ id:"Tools",title:'Tools', 
               content: (<div><h3>Tools</h3><p>Make it easy</p></div>),  
               closable:true,}]}
@@ -127,57 +108,39 @@ class Analysis extends React.Component {
               {
                 mode: "vertical",          
                 children:[
-                  {
-                    mode: "horizontal",         
+                  { mode: "horizontal",         
                     children:[  
                       {tabs:[{id:"directoryTree",title:"Directory",content:(<DirectoryTree/>)} ],size:40},
-                      this.editor_panel,
-                    ]
-                  },
-                  this.console,
+                      this.editor_panel,]
+                  },this.console,
                 ],
               },
               {mode: "vertical",children:[this.shortcuts,this.Tools,],size:35,},
             ]
           }
-        }
+      }
       this.mobileLayout = {
         dockbox : {
           mode :"vertical",
           children:[    
-            {
-              mode: "horizontal",          
+            { mode: "horizontal",          
               children:[
                 this.editor_panel,
-                {
-                  ...this.shortcuts,   
-                  size:20  
-                }
-              ],
-              size:450
+                {...this.shortcuts,size:20}
+              ],size:450
             },
-            {
-              mode: "horizontal",children:[
+            { mode: "horizontal",children:[
               {tabs:[{id:"directoryTree",title:"Directory",content:(<DirectoryTree/>)} ],size:'50%'},
               this.Tools,]
               ,size:'20%',
             },     
-            {
-              ...this.console,size:'20%'
-            }
-              
+            {...this.console,size:'20%'}   
           ]
         }
       }
-      }
-
-  getRef = (r) => {
-    this.dockLayout = r;
-  };
-
-  save(){
-    
-  }
+    }
+  getRef = (r) => {this.dockLayout = r;};
+  save(){}
   add_output(out){
     let state = this.state
     if(out.result.output){
@@ -188,7 +151,6 @@ class Analysis extends React.Component {
       state.console.error.push(out.result.error);
       this.setState(state);
     }
-
   }
   onLayoutChange = (newLayout, currentTabId, direction) => {
     switch(direction){
@@ -200,14 +162,10 @@ class Analysis extends React.Component {
         break;
       case 'middle':case 'float':
         this.tabRef.current=this.dockLayout.find(currentTabId);break;
-        // if(this.tabRef.current)
-        // this.tabRef.current.title="dnn";
       default:
         console.log(direction)
-      
     }
   }
-
   handleEditorDidMount(editor, monaco) {    
     monaco.editor.setTheme(`vs-${document.getElementById("OuterMostBody").className}`);
     this.editorRef.current=editor;
@@ -215,48 +173,46 @@ class Analysis extends React.Component {
     
     this.editors[`${this.tempPath}`]=editor
   }
-
   execute(){
     if(this.editorRef.current){
       const code = this.editorRef.current.getValue()
       const url="https://eigen-flow.onrender.com/api/code/exe_raw"
-
-      axios.post(url, {   
-        code:code,
-      })
+      // const url="https://eigen-flow.onrender.com/api/code/exe_raw"
+      axios.post(url, {code:code,})
       .then((res)=>this.add_output(res.data))
       .catch(function (error) {
         console.log(error);
       });
     }
-   
   }
-
-
-  // debug() {
-  //   let tab = this.dockLayout.find('editor_panel').tabs[0]
-  // }
-
-
-
   addTab = (path,code) => {
     this.tempPath=path;
     this.dockLayout.dockMove(this.newEditorTab(path,code), 'editor_panel', 'middle');
   };
+  addShell = () => {
+      // const url="https://eigen-flow.onrender.com/api/code/exe_raw"
+    const url="http://127.0.0.1:8000/api/code/connect_ipy"      
+    let shell_id=''
+    axios.post(url, {uid:"1234567"})
+    .then((res)=>{
+      shell_id=res.data.shell_id
+      this.dockLayout.dockMove(this.newShellTab(shell_id), 'editor_panel', 'middle');
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  };
   newEditorTab(path, code) { /*method*/ 
-    return { id:path ,closable:true,
-      // title:(<><div className='editor-tab-title' onClick={()=>{this.editorRef.current=this.editors[path]}}>
-      //   {path}</div></>),
-      title:path,
-      content: (
-
-      <Editor  height="100vh" width="100%" theme="myTheme" defaultLanguage='python' style={{top:"20px"}} 
-      path={path}
-      onMount={(editor, monaco)=>this.handleEditorDidMount(editor, monaco)}/> 
-     
-      ),};
+    return { id:path ,closable:true,title:path,
+      content: ( <Editor  height="100vh" width="100%" theme="myTheme" defaultLanguage='python' path={path}
+      style={{top:"20px"}} onMount={(editor, monaco)=>this.handleEditorDidMount(editor, monaco)}/>),};
   }
-
+  newShellTab(shell_id){
+    return  { id:shell_id ,closable:true,title:"IPython",
+      content: (<IPythonShell id={shell_id}/>),};
+  }
   addDataFlowGraphEditor(path,default_graph){
     this.tempPath=path;
     this.dockLayout.dockMove(this.newDataFlowGraphEditorTab(path,default_graph), 'editor_panel', 'middle');
@@ -267,34 +223,19 @@ class Analysis extends React.Component {
       content:(<DataFlowGraph/>)
     }
   }
-  componentWillUnmount()
-  {
-
- 
-  }
-  componentWillMount()
-  {
-    // document.querySelector(".dock-tab-close-btn").addEventListener("fdg",(e)=>console.log(e))
-    if(window.innerWidth>700)
-      this.layout = this.desktopLayout
-    else 
-      this.layout = this.mobileLayout
-
-    
+  componentWillUnmount(){}
+  componentWillMount(){
+    if(window.innerWidth>700) this.layout = this.desktopLayout
+    else this.layout = this.mobileLayout
     console.log(window.innerWidth)
   }
   render() {  
-  // const w = window.innerWidth
-  // if ( w> 700)
-    // console.log(window.innerWidth,90)
     return (
       <Context.Provider value={{console_output:this.state.console.output,console_error:this.state.console.error,value:"This is great\n\niam also"}}>
         <DockLayout ref={this.getRef} defaultLayout={this.layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"
         onLayoutChange={this.onLayoutChange}/>
       </Context.Provider>
     );
-  // else 
-  //     return(<div>This is Great</div>);
   }
 }
 export default Analysis;
