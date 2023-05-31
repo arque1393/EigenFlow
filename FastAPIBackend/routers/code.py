@@ -48,8 +48,6 @@ def exe_ipython(code:IPyCode ):
     print(obj)
     return obj
 
-
-
 # @router.post("/code/files/")
 # async def create_file(file: Annotated[bytes, File()]):
 #     print(file)
@@ -69,15 +67,11 @@ async def create_upload_file(req: CodeFile):
     fire_store.child("users").child(f'{uid}').child(f'{req.filename}').upload(file = req.content, _from = 'string', token=token)
     return {"filename": req.filename}
 
-
-
-
 @router.post('/api/code/getx/')
 async def store(req:Request):
     # data={'name':"Aritra",'age':21}
     # db.push(data=data,token=token)
     return {'data':req.headers}
-
 
 @router.get('/api/drive')
 def connect():

@@ -12,9 +12,9 @@ import {BiSave,BiTable} from "react-icons/bi"
 import {AiOutlineFolderOpen,AiOutlineDotChart,AiOutlineLineChart,
   AiOutlineBarChart,AiOutlineAreaChart,AiOutlinePieChart} from "react-icons/ai";
 import {GrGraphQl} from "react-icons/gr";
-import {GoSync,GoTerminal} from "react-icons/go";
+import {GoSync} from "react-icons/go";
 import {FiUpload} from "react-icons/fi";
-import {BsFillPlayFill} from "react-icons/bs";
+import {BsFillPlayFill,BsTerminalPlus} from "react-icons/bs";
 import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart} from "react-icons/vsc";
 // import {RiTerminalBoxFill} from "react-icons/ri"
 const Context = React.createContext();
@@ -47,7 +47,7 @@ class Analysis extends React.Component {
                 <p style={{fontSize:13}}>Code</p>
                 <div className='shortcuts-ctrl'>
                   <div className='btn' onClick={()=>this.execute()}><span className='icon'><BsFillPlayFill/></span></div>
-                  <div className='btn' onClick={()=>this.addShell()}><span className='icon'><GoTerminal/></span></div>  
+                  <div className='btn' onClick={()=>this.addShell()}><span className='icon'><BsTerminalPlus/></span></div>  
                   <div className='btn'><span className='icon'><VscDebugLineByLine/></span></div>
                   <div className='btn' onClick={()=>this.debug()}><span className='icon'><VscDebugAll/></span></div>
                   <div className='btn'><span className='icon'><VscDebugRestart/></span></div>  
@@ -103,6 +103,7 @@ class Analysis extends React.Component {
               closable:true,}]}
       this.desktopLayout={
           dockbox : {
+            // content:(<div>Hello</div>),
             mode :"horizontal",
             children:[    
               {
@@ -116,7 +117,8 @@ class Analysis extends React.Component {
                 ],
               },
               {mode: "vertical",children:[this.shortcuts,this.Tools,],size:35,},
-            ]
+            ],
+
           }
       }
       this.mobileLayout = {
@@ -191,7 +193,7 @@ class Analysis extends React.Component {
   };
   addShell = () => {
       // const url="https://eigen-flow.onrender.com/api/code/exe_raw"
-    const url="http://127.0.0.1:8000/api/code/connect_ipy"      
+    const url="http://127.0.0.1:8000/api/code/add_ipy"      
     let shell_id=''
     axios.post(url, {uid:"1234567"})
     .then((res)=>{
