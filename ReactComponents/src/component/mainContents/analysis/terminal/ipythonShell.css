@@ -1,0 +1,56 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round&family=Sawarabi+Mincho&family=Source+Serif+Pro:ital@1&family=Suwannaphum:wght@300&display=swap');
+
+.TERMINALX{
+    position: relative;
+    
+    min-height: 14rem;
+    min-width: 25rem;
+    max-height: 100%;
+    height: inherit;
+    width: auto;
+    overflow: scroll;
+    background-color:#141420;
+    color:aquamarine;
+    padding:1rem;
+    /* margin:1rem; */
+}
+.TERMINALX *{color:white;font-family:"Source Code Pro", monospace;;}
+.TERMINALX::-webkit-scrollbar { width: 0 !important }
+.TERMINALX input {
+    border: none;
+    outline: none;
+    margin-left: 5px;
+    padding: 0;
+    background-color: transparent;
+    color: white;
+    min-width: inherit;
+    white-space: pre-line;
+    flex:1;
+
+}
+.TERMINALX .blank{
+    height:70px;width:100%;
+    display:block;
+}
+.terminal_out_item{display: block;}
+.inline,.outline{
+    display:flex;
+}
+.TERMINALX .prompt{
+    min-width: 60px;
+    max-width: 60px;    
+    text-align: right;
+}
+.terminal_out_item .content{
+    margin-left: 5px;
+    white-space: pre-line;
+}
+.inline .prompt{
+    color:greenyellow;
+    
+    
+}
+.outline .prompt{
+    color: rgb(255, 0, 0);
+}

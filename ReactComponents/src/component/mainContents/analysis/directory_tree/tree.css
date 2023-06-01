@@ -1,0 +1,17 @@
+.d-flex{display:flex}
+
+.d-tree-container {
+    list-style: none;
+    display: block;
+    padding: 0;
+}
+.d-tree-node {
+  padding: 0.2rem .625rem;display: block;min-width: fit-content;
+}
+.d-tree-toggler .active {
+  max-width: max-content;
+  transform: rotate(60deg);
+}
+.d-tree-head{
+  min-width: max-content;
+}
