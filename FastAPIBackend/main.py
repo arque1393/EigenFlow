@@ -21,14 +21,18 @@ templates = Jinja2Templates(directory=TEMPLATE_DIR)
 
 @app.get('/')
 async def base(req:Request):
-    return RedirectResponse('/base/home')
+    return RedirectResponse('/base/home',headers=req.headers)
 @app.get('/base')
 async def base(req:Request):
-    return RedirectResponse('/base/home')
+    return RedirectResponse('/base/home',headers=req.headers)
 
 @app.get("/base/{path}", response_class=HTMLResponse, tags=['Base'])
 async def base(request: Request, args:Optional[str]=None):
-    return templates.TemplateResponse("index.html",{"request": request,})
+    try:acc_token = request.query_params.get('auth')
+    except:acc_token=None
+    
+    print(acc_token) 
+    return templates.TemplateResponse("index.html",{"request": request,"headers":{'Auth':acc_token}})
 app.include_router(auth.router)
 app.include_router(code.router)
 # print(fire_store.list_files())
