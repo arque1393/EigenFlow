@@ -75,37 +75,37 @@ async def auth_google(request: Request = None):
             return RedirectResponse(url =f'/base/home/?auth={access_token}',headers=headers)
         
 # @router.get('/auth/google/callback/')
-async def callback(request: Request):
-    code = request.query_params.get("code")
-    print('code')
-    token_url = "https://accounts.google.com/o/oauth2/token"
-    redirect_uri = "http://localhost:8000/auth/google/callback"
+# async def callback(request: Request):
+#     code = request.query_params.get("code")
+#     print('code')
+#     token_url = "https://accounts.google.com/o/oauth2/token"
+#     redirect_uri = "http://localhost:8000/auth/google/callback"
 
-    data = {
-            "code": code,
-            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
-            "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
-            "redirect_uri": redirect_uri,
-            "grant_type": "authorization_code",
-        }
-    async with httpx.AsyncClient() as client:
-        response = await client.post(token_url, data=data)
-        token_data = response.json()
-        return RedirectResponse('/base/home',headers="token")
-        return{"token":token_data}
-        access_token = token_data["access_token"]
+#     data = {
+#             "code": code,
+#             "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+#             "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+#             "redirect_uri": redirect_uri,
+#             "grant_type": "authorization_code",
+#         }
+#     async with httpx.AsyncClient() as client:
+#         response = await client.post(token_url, data=data)
+#         token_data = response.json()
+#         return RedirectResponse('/base/home',headers="token")
+#         return{"token":token_data}
+#         access_token = token_data["access_token"]
         
-        # Retrieve user information from the access token
-        userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
-        headers = {"Authorization": f"Bearer {access_token}"}
-        response = await client.get(userinfo_url, headers=headers)
-        user_info = response.json()
+#         # Retrieve user information from the access token
+#         userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
+#         headers = {"Authorization": f"Bearer {access_token}"}
+#         response = await client.get(userinfo_url, headers=headers)
+#         user_info = response.json()
         
-        # You can process the user information or store it in the session as needed
-        # ...
-        print(user_info)
-        # Return a response to the client
-        return {"access_token": access_token}
+#         # You can process the user information or store it in the session as needed
+#         # ...
+#         print(user_info)
+#         # Return a response to the client
+#         return {"access_token": access_token}
 
 
 

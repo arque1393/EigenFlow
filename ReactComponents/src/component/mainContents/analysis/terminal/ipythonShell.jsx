@@ -9,8 +9,8 @@ function IPythonShell(props){
     const inpRef = useRef();
     let [prevList, setPrevList] = useState([])
     // let [isDone,setIsDone] = useState(false)
-    //   const url="https://eigen-flow.onrender.com/api/code/exe_raw"
-    const url='http://127.0.0.1:8000/api/code/exe_ipy'
+      const url="https://eigen-flow.onrender.com/api/code/exe_ipy"
+    // const url='http://127.0.0.1:8000/api/code/exe_ipy'
     return(
         <div className='TERMINALX' onClick={()=>inpRef.current.focus()}>
             <div className="output">
