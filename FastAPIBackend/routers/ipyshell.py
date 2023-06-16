@@ -15,10 +15,12 @@ class IPySession(object):
             sout = StringIO()
             oout =  sys.stdout
             sys.stdout = sout
-            r = self.sh.run_cell(code).result
-            o= sout.getvalue()
+            return_exe = self.sh.run_cell(code).result
+            out_exe = sout.getvalue()
             sys.stdout = oout
-            return {'output':o,'return':r}
+            return_exe = f"{return_exe}" if return_exe is not None else None
+            out_exe = out_exe if out_exe else "None"
+            return {'output':out_exe,'return':return_exe}
         def getVariables(self):
             return {self.sh}     
     session = {}
@@ -33,6 +35,12 @@ class IPySession(object):
         del self.session[uid]
         del self
         # print(f"Deleated {uid}")
+    def delete(self,cred):
+        # Check(cred)
+        shell=cred.shell_id
+        if shell is None:
+            for i in self.shells:
+                del self.shells[i]
     def restart(self):
         self.timer.cancel()
         self.timer =  Timer(SESSION_TIME,self.destroy)
@@ -64,7 +72,8 @@ class IPySession(object):
         if shell_id in self.shells.keys() :
             print(self.shells[shell_id])
             return self.shells[shell_id].exec(codeLine)
-        else: return {"status":"error"}
+        else: 
+            self.add(shell_id)
     # def select(self, id):
     #     self.selected=self.shells[id]
     def getAll(self):

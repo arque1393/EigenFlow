@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import light_logo from './logo/logo.png'; 
 import logo from './logo/llogo.png'; 
 import { GoThreeBars } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
 import axios from "axios";
-
+import { Context } from "./mainContents/analysis/analysis";
 import './login.css';
 
 
@@ -14,7 +14,8 @@ function TopBar(props){
     //     e.style.display = "block";
     //    }
 
-    
+    // const context = useContext(Context)
+    const view_kernel= useContext(Context)
     function set_theme(theme){
         document.getElementById("OuterMostBody").className = theme
         props.setTheme(theme)
@@ -171,7 +172,7 @@ function TopBar(props){
                             <a className="dropdown-item" href="#">Themes</a>
                             <div className="sub-drop">
                                 <a className="dropdown-item" onClick={()=>set_theme("dark")}>Dark</a>
-                                <a className="dropdown-item"onClick={()=>set_theme("light")}>Light</a>
+                                <a className="dropdown-item" onClick={()=>set_theme("light")}>Light</a>
                                 <a className="dropdown-item" href="#">Add Modr   +</a>
                             </div>
                         </div>
@@ -183,9 +184,9 @@ function TopBar(props){
                     <div className="sub-dropdown-container"> 
                         <a className="dropdown-item" href="#">Ipython Shells </a>
                             <div className="sub-drop">
-                                <a className="dropdown-item">Configure</a>
-                                <a className="dropdown-item">Show Active Shell</a>
-                                <a className="dropdown-item" href="#">Add New Shell</a>
+                                <a className="dropdown-item" onClick={()=>console.log(view_kernel)}>Configure</a>
+                                <a className="dropdown-item" >Show Active</a>
+                                <a className="dropdown-item" href="#">Add New</a>
                             </div>
                     </div>
                     <a className="dropdown-item" href="#">Plot Tools </a>

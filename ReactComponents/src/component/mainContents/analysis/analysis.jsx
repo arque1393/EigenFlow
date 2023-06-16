@@ -1,13 +1,19 @@
+/// Module Import 
 import * as React from 'react';
-
+import axios from 'axios';
+import {DockLayout} from 'rc-dock';
+/// Components
 import Editor from '@monaco-editor/react'
 import IPythonShell from './terminal/ipythonShell';
 import DirectoryTree from './directory_tree/directory';
-import {DockLayout} from 'rc-dock';
-import axios from 'axios';
 import DataFlowGraph from './DataFlowGraph/graphModel';
+/// Context 
+// import MenuContext from '../../../context';
+/// Style sheets
 import '../dockLayout.css';
 import './analysis.css';
+
+/// Icons
 import {TiFlowSwitch} from 'react-icons/ti'
 import {BiSave,BiTable} from "react-icons/bi"
 import {AiOutlineFolderOpen,AiOutlineDotChart,AiOutlineLineChart,
@@ -19,6 +25,8 @@ import {BsFillPlayFill,BsTerminalPlus} from "react-icons/bs";
 import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart} from "react-icons/vsc";
 // import {RiTerminalBoxFill} from "react-icons/ri"
 const Context = React.createContext();
+const MenuContext = React.createContext();
+export {Context}
 class Analysis extends React.Component {
   constructor() {
         super();
@@ -217,6 +225,9 @@ class Analysis extends React.Component {
       content:(<DataFlowGraph/>)
     }
   }
+  view_kernels(){
+    console.log('sssss')
+  }
   componentWillUnmount(){}
   componentWillMount(){
     if(window.innerWidth>700) this.layout = this.desktopLayout
@@ -224,10 +235,12 @@ class Analysis extends React.Component {
   }
   render() {  
     return (
+        <MenuContext.Provider value={this.state}>
       <Context.Provider value={{console_output:this.state.console.output,console_error:this.state.console.error,value:"This is great\n\niam also"}}>
         <DockLayout ref={this.getRef} defaultLayout={this.layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"
         onLayoutChange={this.onLayoutChange}/>
       </Context.Provider>
+        </MenuContext.Provider>
     );
   }
 }
