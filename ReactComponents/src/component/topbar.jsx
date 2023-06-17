@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import light_logo from './logo/logo.png'; 
-import logo from './logo/llogo.png'; 
+import logo from './logo/logo.png'; 
+import light_logo from './logo/llogo.png'; 
 import { GoThreeBars } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
 import axios from "axios";
-import { Context } from "./mainContents/analysis/analysis";
+import { Context } from "./mainContents/analysis";
 import './login.css';
 
 
@@ -15,7 +15,7 @@ function TopBar(props){
     //    }
 
     // const context = useContext(Context)
-    const view_kernel= useContext(Context)
+    const view_kernel=useContext(MenuContext)
     function set_theme(theme){
         document.getElementById("OuterMostBody").className = theme
         props.setTheme(theme)
@@ -36,7 +36,7 @@ function TopBar(props){
     function loginSubmit(event){
         event.preventDefault()
         const data = { 
-             email:event.target[0].value,
+            email:event.target[0].value,
             password:event.target[1].value
         }
         const url =  "http://127.0.0.1:8000/api/auth/signin/";
@@ -141,7 +141,7 @@ function TopBar(props){
         </div>
         </div>
     <div className="logo">
-        <img src={props.theme==="dark"?logo:light_logo}/>
+        <img src={props.theme==="light"?light_logo:logo}/>
         <h3><span className="danger">Eigen</span>Flow</h3>
     </div>
 
@@ -184,11 +184,12 @@ function TopBar(props){
                     <div className="sub-dropdown-container"> 
                         <a className="dropdown-item" href="#">Ipython Shells </a>
                             <div className="sub-drop">
-                                <a className="dropdown-item" onClick={()=>console.log(view_kernel)}>Configure</a>
+                                <a className="dropdown-item" onClick={()=>props.setMenuClick("config")}>Configure</a>
                                 <a className="dropdown-item" >Show Active</a>
                                 <a className="dropdown-item" href="#">Add New</a>
                             </div>
                     </div>
+                    <a className="dropdown-item" href="#">Graphical Script  </a>
                     <a className="dropdown-item" href="#">Plot Tools </a>
                     <a className="dropdown-item" href="#">Directory </a>
                     <a className="dropdown-item" href="#">Code Editor</a>
