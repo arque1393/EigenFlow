@@ -25,7 +25,7 @@
     --dropdown-border: #30363f;
     --padding-1: 1.2rem;
     --box-shadow: .3rem .3rem .7rem var(--color-light);
-    --menu-shadow: .2rem .21rem 0.21rem rgb(57, 45, 65,.61);
+    --menu-shadow: 0rem .5rem 1rem rgba(0, 0, 0, 0.71);
 }
 .light{
     --color-primary: rgb(90, 70, 185);/*#7773ec;*/
@@ -90,7 +90,7 @@ h6 {font-size: 1rem;}
 P{color: var(--color-dark-variant);}
 b{color: var(--color-dark-variant)}
 .primary {color: var(--color-primary);}
-.danger {font-weight:1000px; color: var(--color-danger);}
+.danger {font-weight:900px; color: var(--color-danger);}
 .success {color: var(--color-success);}
 .warning {color: var(--color-warning);}
 .top {width: 100%;height:1.8rem;z-index: 100;padding:2px 50px;
