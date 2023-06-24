@@ -32,9 +32,27 @@ input{
     border-left: solid 2px var(--color-info-light);
     border-right: solid 2px var(--color-info-light);
     /* background-color: blueviolet; */
-
+    scroll-behavior: smooth; gap:1rem;  padding: 1rem;
+    max-height: fit-content;   border-radius: 20px;margin:4px;
 }
 .Notification{
     /* background-color:     blueviolet; */
     flex:1
 }
+
+  .Description ::-webkit-scrollbar { width: 0 !important }
+  .Description  .project_item {
+    background: var(--color-white);
+    max-height: 250px;
+    padding: 1rem;margin-top: .2rem;
+    border-radius: var(--card-border-radius);    
+    box-shadow: var(--box-shadow);
+    transition: all .3s ease;
+    /* max-width: fit-content;      */
+  }
+    .Description  .project_item *{color:var(--color-dark)}
+  .Description  .project_item .circle{
+    height: 5rem;   width: 5rem;    margin:1rem;
+    border-radius:50%;  padding: .5rem 1rem;
+    border:solid 1rem #7380ec;
+    justify-content: space-around;}

@@ -199,6 +199,13 @@ b{color: var(--color-dark-variant)}
 background-color:none ;}
 
 
+
+
+
+
+
+
+
 .login-back-container{z-index:151;position:absolute;display:none;height: 100%;width: 100%;place-items: center;background-color: rgba(0,0,0,0.41);}
 #close_login:checked ~.login-back-container{display:grid;}
 
