@@ -15,6 +15,7 @@ import './analysis.css';
 
 /// Icons
 import {TiFlowSwitch} from 'react-icons/ti'
+import {TbBrandPowershell} from 'react-icons/tb'
 import {BiSave,BiTable} from "react-icons/bi"
 import {AiOutlineFolderOpen,AiOutlineDotChart,AiOutlineLineChart,
   AiOutlineBarChart,AiOutlineAreaChart,AiOutlinePieChart} from "react-icons/ai";
@@ -22,7 +23,7 @@ import {GrGraphQl} from "react-icons/gr";
 import {GoSync} from "react-icons/go";
 import {FiUpload} from "react-icons/fi";
 import {BsFillPlayFill,BsTerminalPlus} from "react-icons/bs";
-import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart} from "react-icons/vsc";
+import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart,VscVariableGroup} from "react-icons/vsc";
 // import {RiTerminalBoxFill} from "react-icons/ri"
 const Context = React.createContext();
 const MenuContext = React.createContext();
@@ -109,7 +110,15 @@ class Analysis extends React.Component {
               ],size:60, panelLock: true
         }
         this.Tools={tabs:[{ id:"Tools",title:'Tools', 
-              content: (<div><h3>Tools</h3><p>Make it easy</p></div>),  
+              content: (<div style={{padding:"4px"}}>
+                <h3>Tools</h3>
+
+              <div className='ToolsItem'><span className='icon'><VscNewFile/></span><p>Text Editor</p></div>
+              <div className='ToolsItem'><span className='icon'><VscVariableGroup/></span><p>Variable View</p></div>
+              <div className='ToolsItem'><span className='icon'><VscNewFile/></span><p> Visual Scripting </p></div>
+              <div className='ToolsItem'><span className='icon'><VscNewFile/></span><p> View Plot</p></div>
+              <div className='ToolsItem'><span className='icon'><TbBrandPowershell/></span><p> IPython Shell</p></div>
+              </div>),  
               closable:true,}]}
       this.desktopLayout={
           dockbox : {

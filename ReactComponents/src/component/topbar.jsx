@@ -4,7 +4,7 @@ import light_logo from './logo/llogo.png';
 import { GoThreeBars } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
 import axios from "axios";
-import { Context } from "./mainContents/analysis";
+// import { Context } from "./mainContents/analysis";
 import './login.css';
 
 
@@ -15,7 +15,7 @@ function TopBar(props){
     //    }
 
     // const context = useContext(Context)
-    const view_kernel=useContext(MenuContext)
+    const view_kernel=null
     function set_theme(theme){
         document.getElementById("OuterMostBody").className = theme
         props.setTheme(theme)
