@@ -50,3 +50,6 @@
     .dock-tab-close-btn::before{content:"X"}
 #directoryTree{overflow: scroll;}
 #directoryTree::-webkit-scrollbar { width: 0px !important }
+.ToolsItem{padding: 1px 8px; display: flex;border-radius: 15px; gap:6px;}
+/* .ToolsItem:hover{background-color: var(--color-primary-variant);;} */
+.ToolsItem:hover{color: var(--color-info-light);font-weight: bold;}

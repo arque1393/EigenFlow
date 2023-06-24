@@ -4,18 +4,18 @@ import logo from './logo/logo.png';
 import light_logo from './logo/llogo.png'; 
 import { GoThreeBars } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
+import axios from "axios";
 // import { Context } from "./mainContents/analysis";
 import './login.css';
-
-
 function TopBar(props){
     //    function on_click(e){
     //     e = document.getElementById(e);
     //     e.style.display = "block";
     //    }
-
     // const context = useContext(Context)
+
     const view_kernel=[]
+
     function set_theme(theme){
         document.getElementById("OuterMostBody").className = theme
         props.setTheme(theme)
