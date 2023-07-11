@@ -28,7 +28,7 @@ input{
     border:solid 1px var(--color-dark-variant);display:flex;justify-content: space-between;padding-left: 20px;
     padding-right:20px;margin-right:20px;gap:5px ;}
 .Description{
-    flex:1.4    ;
+    flex:1   ;
     border-left: solid 2px var(--color-info-light);
     border-right: solid 2px var(--color-info-light);
     /* background-color: blueviolet; */
@@ -39,20 +39,34 @@ input{
     /* background-color:     blueviolet; */
     flex:1
 }
-
-  .Description ::-webkit-scrollbar { width: 0 !important }
-  .Description  .project_item {
+.progress{flex:1;min-width: max-content;}
+.project_card {
     background: var(--color-white);
-    max-height: 250px;
+    max-height: 300px;display:flex;
     padding: 1rem;margin-top: .2rem;
     border-radius: var(--card-border-radius);    
     box-shadow: var(--box-shadow);
     transition: all .3s ease;
     /* max-width: fit-content;      */
   }
-    .Description  .project_item *{color:var(--color-dark)}
-  .Description  .project_item .circle{
-    height: 5rem;   width: 5rem;    margin:1rem;
-    border-radius:50%;  padding: .5rem 1rem;
-    border:solid 1rem #7380ec;
+  .project_card *{color:var(--color-dark)}
+  .project_card .circle{
+    height: 7rem;   width: 7rem;    margin:.1rem;
+    border-radius:50%;  padding: .5rem .5rem;
+    border:solid 1.5rem #7380ec;
     justify-content: space-around;}
+
+ .rectangle{
+    min-height: 10px;border-radius: 5px;margin:1rem;
+    min-width: 80%;
+    background-color: aquamarine;
+}
+.Notification{
+    padding:20px;
+}
+.notification{
+    border-radius: 20px;
+    border: solid 1px var(--color-info-light);
+    padding:3% 8%;
+    margin-top:20px;
+}

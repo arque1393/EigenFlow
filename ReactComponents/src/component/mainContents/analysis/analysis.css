@@ -1,5 +1,5 @@
 #shortcuts{
-    overflow-y: scroll;padding-left: .4rem;padding-right:0.15rem;
+    overflow-y: scroll;padding-left: .4rem;padding-right:0.15rem;user-select: none;
 }
 #shortcuts::-webkit-scrollbar { width: 0px !important }
 #shortcuts h6{margin-top:5px}
@@ -7,8 +7,9 @@
     position:relative;display:grid;gap:.4rem;grid-column-gap: .05rem;                              
     grid-template-columns:repeat(auto-fit, minmax(2.5rem, 0fr));
     justify-content: center;}
-.directoryTree{
-    overflow: scroll;
+
+#directoryTree{
+    overflow: scroll;user-select: none;
 }
   .shortcuts-ctrl .btn:active{
      top:2px;
@@ -53,3 +54,4 @@
 .ToolsItem{padding: 1px 8px; display: flex;border-radius: 15px; gap:6px;}
 /* .ToolsItem:hover{background-color: var(--color-primary-variant);;} */
 .ToolsItem:hover{color: var(--color-info-light);font-weight: bold;}
+#Tools{user-select: none;}

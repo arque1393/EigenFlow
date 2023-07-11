@@ -69,13 +69,14 @@ body{   font-family: 'Suwannaphum', serif;
     justify-content: stretch;
 }
 .btn{
-    padding-top: 3px; position: relative; display:flex;
+    position: relative; display:flex;
     border:solid 1px var(--color-info-light); overflow: hidden;
-    height:2.15rem;width:2.15rem;    border-radius: 5px;justify-content: center;
+    height:1.8rem;width:1.8rem;    border-radius: 5px;justify-content: center;
     color: var(--color-info-dark);   align-items: center;  transition: 
     all .3s ease; background-color: var(--dock-panel-back); 
-    box-shadow: var( --shortcuts-btn-shadow);  
+    box-shadow: var( --shortcuts-btn-shadow);
   }
+.btn *{font-size: 1.3rem;}
   
 a {color: var(--color-dark);}
 img {display: block; width: 100%;}
@@ -95,7 +96,9 @@ b{color: var(--color-dark-variant)}
 .warning {color: var(--color-warning);}
 .top {width: 100%;height:1.8rem;z-index: 100;padding:2px 50px;
     background:var(--color-top);display: flex;align-items:center;gap:2rem;
-    justify-content: space-between;box-shadow:var(--box-shadow);overflow: hidden;}
+    justify-content: space-between;box-shadow:var(--box-shadow);overflow: hidden;
+    user-select: none;
+}
 .logo {display: flex;  gap: 0.1rem;padding: 0 0.2rem;color:var(--color-dark)}
 .logo img {margin-top: .46rem;   width: 1.6rem;  height: 1.6rem; }
 .menu-content{display: inline-block;}
