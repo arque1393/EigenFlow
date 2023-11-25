@@ -12,3 +12,5 @@ ipykernel
 numpy
 pandas 
 matplotlib
+python-dotenv
+httpx

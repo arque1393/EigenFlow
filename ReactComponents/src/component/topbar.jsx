@@ -1,146 +1,43 @@
-import React, { useState } from "react";
-import light_logo from './logo/logo.png'; 
-import logo from './logo/llogo.png'; 
+import React, { useContext, useState } from "react";
+import SignupWin from "./authentication";
+import logo from './logo/logo.png'; 
+import light_logo from './logo/llogo.png'; 
 import { GoThreeBars } from 'react-icons/go';
 import { FaUserCircle } from 'react-icons/fa';
 import axios from "axios";
-
+// import { Context } from "./mainContents/analysis";
 import './login.css';
-
-
 function TopBar(props){
     //    function on_click(e){
     //     e = document.getElementById(e);
     //     e.style.display = "block";
     //    }
+    // const context = useContext(Context)
 
-    
+    const view_kernel=[]
+
     function set_theme(theme){
         document.getElementById("OuterMostBody").className = theme
         props.setTheme(theme)
     }
-    function set_auth(data){
-        props.setAuth(data)
-    }
+
     let [mb0,open_mb0] =useState(false);
     let [mb1,open_mb1] =useState(false);
     let [mb2,open_mb2] =useState(false);
     let [mb3,open_mb3] =useState(false);
     let [slided,set_slided] =useState(false);
     let [login_on,set_login_on] =useState(false);
-    let [slide,set_slide] = useState("");
-    let [authError, setAuthError] = useState("")
 
 
-    function loginSubmit(event){
-        event.preventDefault()
-        const data = { 
-             email:event.target[0].value,
-            password:event.target[1].value
-        }
-        const url =  "http://127.0.0.1:8000/api/auth/signin/";
-        axios.post(url, data)
-          .then(function (res) {     
-            set_auth(res.data);
-            // props.setAuth(res.data);
-          })
-          .catch(function (error) {
-            setAuthError(error);
-          });
-          set_login_on(false)
-    }
-    function signupSubmit(event){
-        event.preventDefault()
-        const url =  "http://127.0.0.1:8000/api/auth/signup/";
-        const username   =event.target[0].value
-        const email  =event.target[1].value
-        const password1  = event.target[2].value
-        const password2  = event.target[3].value
-        if(password1!==password2)
-        {
-            setAuthError("Password Missmatch")
-            return
-        }
-        axios.post(url, {   
-            username:username,
-            email:email,
-            password:password1
-           })
-          .then(function (res) {
-            console.log(res.data);
-          })
-          .catch(function (error) {
-            setAuthError(error);
-          });
 
-          set_login_on(false)
-        
-        // 
-        // 
-        // 
-        // 
-
-    }
 
     return(
 <div className="top">
 
-    
-    <div className={`login_back_container ${login_on?"login_show":""}`} onClick={(e)=>{
-    if(e.target.className==="login_back_container login_show")
-        set_login_on(false)}}> 
-        <div className="login-back">
-            <div className="form-outer">
-            <div className={`form-inner${slide}`}>
-                <form onSubmit={loginSubmit} className="login">
-                <div className="title"> Sign In </div>
-                <div className="field">
-                    <input name="email" type="email" placeholder="Email ID" required/>
-                </div>
-                <div className="field">
-                    <input name="password" type="password" placeholder="Password" required/>
-                </div>
-                <div className="pass-link"><a href="#">Forgot password?</a></div>
-                <div className="error">
-                    {authError}
-                </div>
-                <div className="field">
-                    <div className="btn-layer"></div>
-                    <input type="submit" value="Login"/>
-                </div>
-                <div className="signup-link">Not a member?</div>
-                <div onClick = {()=>set_slide(" slide1")}className="btnx">Signup -> </div>
-                </form>
-                <form onSubmit={signupSubmit} className="signup">
-                <div className="title"> Sign Up </div>
-                <div className="field">
-                    <input type="text" placeholder="Username" required/>
-                </div>
-                <div className="field">
-                    <input type="email" placeholder="Email Address" required/>
-                </div>
-                <div className="field">
-                    <input type="password" placeholder="Password" required/>
-                </div>
-                <div className="field">
-                    <input type="password" placeholder="Confirm password" required/>
-                </div>
-                <div className="error">
-                    {authError}
-                </div>
-                <div className="field">
-                    <div className="btn-layer"></div>
-                    <input type="submit" value="Signup"/>
-                </div>
-                <div onClick={()=>set_slide("")} className="btnx">  {'<-'} Signin</div>
+    <SignupWin setAuth ={props.setAuth} login_on ={login_on} set_login_on={set_login_on}/>
 
-                </form>
-            </div>
-            </div>
-        </div>
-        </div>
     <div className="logo">
-        <img src={props.theme==="dark"?logo:light_logo}/>
+        <img src={props.theme==="light"?light_logo:logo}/>
         <h3><span className="danger">Eigen</span>Flow</h3>
     </div>
 
@@ -171,7 +68,7 @@ function TopBar(props){
                             <a className="dropdown-item" href="#">Themes</a>
                             <div className="sub-drop">
                                 <a className="dropdown-item" onClick={()=>set_theme("dark")}>Dark</a>
-                                <a className="dropdown-item"onClick={()=>set_theme("light")}>Light</a>
+                                <a className="dropdown-item" onClick={()=>set_theme("light")}>Light</a>
                                 <a className="dropdown-item" href="#">Add Modr   +</a>
                             </div>
                         </div>
@@ -183,11 +80,12 @@ function TopBar(props){
                     <div className="sub-dropdown-container"> 
                         <a className="dropdown-item" href="#">Ipython Shells </a>
                             <div className="sub-drop">
-                                <a className="dropdown-item">Configure</a>
-                                <a className="dropdown-item">Show Active Shell</a>
-                                <a className="dropdown-item" href="#">Add New Shell</a>
+                                <a className="dropdown-item" onClick={()=>props.setMenuClick("config")}>Configure</a>
+                                <a className="dropdown-item" >Show Active</a>
+                                <a className="dropdown-item" href="#">Add New</a>
                             </div>
                     </div>
+                    <a className="dropdown-item" href="#">Graphical Script  </a>
                     <a className="dropdown-item" href="#">Plot Tools </a>
                     <a className="dropdown-item" href="#">Directory </a>
                     <a className="dropdown-item" href="#">Code Editor</a>

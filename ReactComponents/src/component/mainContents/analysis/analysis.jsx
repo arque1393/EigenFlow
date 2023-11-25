@@ -1,14 +1,21 @@
+/// Module Import 
 import * as React from 'react';
-
+import axios from 'axios';
+import {DockLayout} from 'rc-dock';
+/// Components
 import Editor from '@monaco-editor/react'
 import IPythonShell from './terminal/ipythonShell';
 import DirectoryTree from './directory_tree/directory';
-import {DockLayout} from 'rc-dock';
-import axios from 'axios';
 import DataFlowGraph from './DataFlowGraph/graphModel';
+/// Context 
+// import MenuContext from '../../../context';
+/// Style sheets
 import '../dockLayout.css';
 import './analysis.css';
+
+/// Icons
 import {TiFlowSwitch} from 'react-icons/ti'
+import {TbBrandPowershell} from 'react-icons/tb'
 import {BiSave,BiTable} from "react-icons/bi"
 import {AiOutlineFolderOpen,AiOutlineDotChart,AiOutlineLineChart,
   AiOutlineBarChart,AiOutlineAreaChart,AiOutlinePieChart} from "react-icons/ai";
@@ -16,9 +23,11 @@ import {GrGraphQl} from "react-icons/gr";
 import {GoSync} from "react-icons/go";
 import {FiUpload} from "react-icons/fi";
 import {BsFillPlayFill,BsTerminalPlus} from "react-icons/bs";
-import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart} from "react-icons/vsc";
+import {VscDebugAll,VscNewFile,VscDebugLineByLine,VscDebugRestart,VscVariableGroup} from "react-icons/vsc";
 // import {RiTerminalBoxFill} from "react-icons/ri"
 const Context = React.createContext();
+const MenuContext = React.createContext();
+export {Context}
 class Analysis extends React.Component {
   constructor() {
         super();
@@ -101,7 +110,15 @@ class Analysis extends React.Component {
               ],size:60, panelLock: true
         }
         this.Tools={tabs:[{ id:"Tools",title:'Tools', 
-              content: (<div><h3>Tools</h3><p>Make it easy</p></div>),  
+              content: (<div style={{padding:"4px"}}>
+                <h3>Tools</h3>
+
+              <div className='ToolsItem'><span className='icon'><VscNewFile/></span><p>Text Editor</p></div>
+              <div className='ToolsItem'><span className='icon'><VscVariableGroup/></span><p>Variable View</p></div>
+              <div className='ToolsItem'><span className='icon'><VscNewFile/></span><p> Visual Scripting </p></div>
+              <div className='ToolsItem'><span className='icon'><VscNewFile/></span><p> View Plot</p></div>
+              <div className='ToolsItem'><span className='icon'><TbBrandPowershell/></span><p> IPython Shell</p></div>
+              </div>),  
               closable:true,}]}
       this.desktopLayout={
           dockbox : {
@@ -217,6 +234,9 @@ class Analysis extends React.Component {
       content:(<DataFlowGraph/>)
     }
   }
+  view_kernels(){
+    console.log('sssss')
+  }
   componentWillUnmount(){}
   componentWillMount(){
     if(window.innerWidth>700) this.layout = this.desktopLayout
@@ -224,10 +244,12 @@ class Analysis extends React.Component {
   }
   render() {  
     return (
+        <MenuContext.Provider value={this.state}>
       <Context.Provider value={{console_output:this.state.console.output,console_error:this.state.console.error,value:"This is great\n\niam also"}}>
         <DockLayout ref={this.getRef} defaultLayout={this.layout} style={{position: 'absolute', left: 10, top: 10, right: 10, bottom: 10}} theme="dark"
         onLayoutChange={this.onLayoutChange}/>
       </Context.Provider>
+        </MenuContext.Provider>
     );
   }
 }
